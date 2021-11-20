@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<head th:replace="template/main_template::general_head">
+
+</head>
+<body>
+    <div class="container-sm" style="width: 20%;">
+        <h1>Login</h1>
+        <form method="post" th:action="@{/login/entrar}" >
+            <div class="mb-3">
+                <label for="user" class="form-label">Usuario:</label>
+                <input type="text" class="form-control" name="user" placeholder="Usuario">
+            </div>
+            <div class="mb-3">
+                <label for="pass" class="form-label">Password:</label>
+                <input type="text" class="form-control" name="pass" placeholder="Password">
+            </div>
+           
+            <input type="submit" class="btn btn-success" value="Login">
+        </form>
+    </div>
+    <div th:replace="template/main_template::general_scripts"></div>
+</body>
+</html>

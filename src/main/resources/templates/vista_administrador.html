@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<head th:replace="template/main_template::general_head">
+</head>
+<body>
+    <header th:replace="template/main_template::general_header_admin"></header>
+
+    <br>
+    <div class="container" th:if="${active} eq 1">
+        <div>
+            </h1>
+            <h1>Usuarios</h1>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddUser">
+                Agregar Nuevo Usuario
+            </button>
+            <br>
+        </div>
+        <table class="table table-bordered table-success table-striped table-hover" >
+            <thead>
+                <tr>
+                    <th>Id Usuario</th>
+                    <th>User</th>
+                    <th>Pass</th>
+                    <th>Rol</th>
+                    <th>Nombre</th>
+                    <th>Dni</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Sucursal</th>
+                    <th>Editar Usuario</th>
+                    <th>Eliminar Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="usuario" items="${datos_usuarios}">
+                <tr th:each="usuario : ${datos_usuarios}">
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.user}"></td>
+                    <td th:text="${usuario.pass}"></td>
+                    <td th:text="${usuario.rol}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.dni}"></td>
+                    <td th:text="${usuario.direccion}"></td>
+                    <td th:text="${usuario.telefono}"></td>
+                    <td th:text="${usuario.sucursal}"></td>
+                    <td><a href="@{usuarios/edit/{id}(id=${usuario.id})" class="btn btn-sm btn-warning">Editar</a></td>
+                    <td><a href="@{usuarios/delete/{id}(id=${usuario.id})" class="btn btn-sm btn-danger">Eliminar</a></td>
+                </tr>
+                </tbody>
+        </table>
+        <br>
+
+    </div>
+    <div class="container" th:if="${active} eq 0">
+
+        <h1>Vehiculos</h1>
+        <form th:action="@{/admin/vehiculos/add}" method="post">
+
+            <input type="submit" value="Agregar Nuevo Vehiculo" class="btn btn-primary">
+        </form>
+        <br>
+        <table class="table table-bordered table-success table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id Vehiculo</th>
+                    <th>Precio de Alquiler</th>
+                    <th>Litros en Tanque</th>
+                    <th>Fue Entregado</th>
+                    <th>Patente</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Color</th>
+                    <th>Editar Vehiculo</th>
+                    <th>Eliminar Vehiculo</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr th:each="vehiculo : ${datos_vehiculos}">
+                    <td th:text="${vehiculo.id}"></td>
+                    <td th:text="${vehiculo.precio_alquiler}"></td>
+                    <td th:text="${vehiculo.litros_combustible}"></td>
+                    <td th:text="${vehiculo.entregado}"></td>
+                    <td th:text="${vehiculo.patente}"></td>
+                    <td th:text="${vehiculo.modelo}"></td>
+                    <td th:text="${vehiculo.marca}"></td>
+                    <td th:text="${vehiculo.color}"></td>
+                    <td><a href="@{/admin/vehiculos/edit/{id}(id=${vehiculo.id})" class="btn btn-sm btn-warning">Editar</a></td>
+                    <td><a href="@{/admin/vehiculos/delete/{id}(id=${vehiculo.id})" class="btn btn-sm btn-danger">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+    </div>
+    <br>
+
+    <div th:replace="template/main_template::general_scripts"></div>
+
+    <!-- Modales Usuarios -->
+
+    <!-- Modal Agregar-->
+    <div class="modal fade" id="AddUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Agregar Nuevo Usuario</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div th:replace="template/admin_forms_template::usuarios_add"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="template/main_template::general_footer"></footer>
+</body>
+</html>

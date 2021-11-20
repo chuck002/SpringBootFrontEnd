@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<head th:replace="template/main_template::general_head">
+</head>
+<body>
+    <header th:replace="template/main_template::general_header_vendedor"></header>
+
+    <div class="container" th:if="${active} eq 1">
+        <h1>Clientes</h1>
+        <form th:action="@{/vendedor/clientes/add}"method="post" >
+            <input type="submit" value="Agregar Nuevo Cliente" class="btn btn-primary">
+        </form>
+        <table class="table table-bordered table-success table-striped table-hover">
+            <thead>
+                <tr>
+                    <td>Id Usuario</td>
+                    <td>User</td>
+                    <td>Pass</td>
+                    <td>Nombre</td>
+                    <td>Dni</td>
+                    <td>Direccion</td>
+                    <td>Telefono</td>
+                    <td>Sucursal</td>
+                    <td>Editar Usuario</td>
+                    <td>Eliminar Usuario</td>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="usuario" items="${datos_usuarios}">
+                <c:if test="${usuario.rol == 3}">
+                    <tr th:each="usuario : ${datos_usuarios}" th:if="${usuario.rol eq 3}">
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.user}"></td>
+                        <td th:text="${usuario.pass}"></td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.dni}"></td>
+                        <td th:text="${usuario.direccion}"></td>
+                        <td th:text="${usuario.telefono}"></td>
+                        <td th:text="${usuario.sucursal}"></td>
+                        <td>
+                            <form action="ControladorVendedor" method="post">
+                                <input type="hidden" name="id" value="${usuario.id}"/>
+                                <input type="hidden" name="tipo" value="usuario"/>
+                                <input type="hidden" name="action" value="editar"/>
+                                <input type="submit" value="Editar" class="boton-update"/>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="ControladorVendedor" method="post">
+                                <input type="hidden" name="id" value="${usuario.id}"/>
+                                <input type="hidden" name="tipo" value="usuario"/>
+                                <input type="hidden" name="action" value="eliminar"/>
+                                <input type="submit" value="Eliminar" class="boton-delete"/>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br>
+                    <form action="ControladorVendedor"method="post">
+                        <input type="hidden" name="tipo" value="usuario"/>
+                        <input type="hidden" name="action" value="agregar"/>
+                        <input type="submit" value="Agregar Nuevo Cliente" class="boton-submit">
+                    </form>
+                    </div>
+                    <div class="container" th:if="${active} eq 0">
+                        <h1>Reservas</h1>
+                        <form th:action="@{/vendedor/clientes/add}"method="post" >
+                            <input type="submit" value="Agregar Nueva Reserva" class="btn btn-primary">
+                        </form>
+                        <table class="table table-bordered table-success table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <td>Id Reserva</td>
+                                    <td>Fecha de Inicio</td>
+                                    <td>Fecha de Cierre</td>
+                                    <td>Precio Total</td>
+                                    <td>ID Oficina</td>
+                                    <td>ID Cliente</td>
+                                    <td>Vehiculos Entregados</td>
+                                    <td>Vehiculos Reservados</td>
+                                    <td>Editar Reserva</td>
+                                    <td>Eliminar Reserva</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="reserva: ${datos_reservas}">
+                                    <td th:text="${reserva.id}"></td>
+                                    <td th:text="${reserva.fecha_inicio}"></td>
+                                    <td th:text="${reserva.fecha_final}"></td>
+                                    <td th:text="${reserva.precio_total}"></td>
+                                    <td th:text="${reserva.id_oficina}"></td>
+                                    <td th:text="${reserva.id_cliente}"></td>
+                                    <td>
+                                        <a th:href="@{/vendedor/vehiculos/entregados}">Vehiculos Entregados</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/vendedor/vehiculos/reservados}">Vehiculos Reservados</a>
+                                    </td>
+                                    <td>
+                                        <form action="ControladorVendedor" method="post">
+                                            <input type="hidden" name="id" value="${reserva.id}"/>
+                                            <input type="hidden" name="tipo" value="reserva"/>
+                                            <input type="hidden" name="action" value="editar"/>
+                                            <input type="submit" value="Editar" class="boton-update"/>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="ControladorVendedor" method="post">
+                                            <input type="hidden" name="id" value="${reserva.id}"/>
+                                            <input type="hidden" name="tipo" value="reserva"/>
+                                            <input type="hidden" name="action" value="eliminar"/>
+                                            <input type="submit" value="Eliminar" class="boton-delete"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+
+                    </div>
+
+                    <br>
+
+                    <div th:replace="template/main_template::general_scripts"></div>
+                    <footer th:replace="template/main_template::general_footer"></footer>
+                    </body>
+                    </html>

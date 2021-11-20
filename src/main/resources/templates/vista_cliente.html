@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<head th:replace="template/main_template::general_head">
+</head>
+<body>
+    <header th:replace="template/main_template::general_header_cliente"></header>
+    <div class="container">
+        
+        <h1>Reservas</h1>
+        <br>
+    <table class="table table-bordered table-success table-striped table-hover">
+        <thead>
+            <tr>
+                <td>Id Reserva</td>
+                <td>Fecha de Inicio</td>
+                <td>Fecha de Cierre</td>
+                <td>Precio Total</td>
+                <td>ID Oficina</td>
+                <td>ID Cliente</td>
+                <td>Vehiculos Entregados</td>
+                <td>Vehiculos Reservados</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reserva : ${datos_reservas}" th:if="${reserva.id_cliente} eq ${usuario.id}">
+                <td th:text="${reserva.id}"></td>
+                <td th:text="${reserva.fecha_inicio}"></td>
+                <td th:text="${reserva.fecha_final}"></td>
+                <td th:text="${reserva.precio_total}"></td>
+                <td th:text="${reserva.id_oficina}"></td>
+                <td th:text="${reserva.id_cliente}"></td>
+                <td><a href="" class="btn btn-success btn-sm">Mostrar Entregados</a>
+                <td><a href="" class="btn btn-success btn-sm">Mostrar Reservados</a>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+</div>
+
+<div th:replace="template/main_template::general_scripts"></div>
+<footer th:replace="template/main_template::general_footer"></footer>
+</body>
+</html>

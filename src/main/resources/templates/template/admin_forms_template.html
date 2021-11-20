@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang=”es” xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <div th:fragment="usuarios_add">
+            <div class="container">
+                <!--<form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario_add}" >-->
+                <form method="post" th:action="@{/admin/usuarios/add}" >
+                    <div class="mb-3">
+                    <label>User: </label>
+                    <input type="text" required="true"  name="user"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Pass: </label>
+                    <input type="text" required="true"  name="pass"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Rol: </label>
+                    <select  name="rol" >
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Vendedor</option>
+                        <option value="3">Cliente</option>
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                    <label>Nombre Completo: </label>
+                    <input type="text" required="true"  name="nombre"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Dni: </label>
+                    <input type="text"  name="dni"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Direccion: </label>
+                    <input type="text" name="direccion"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Telefono: </label>
+                    <input type="text" name="telefono"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Sucursal: </label>
+                    <input type="number" name="sucursal"/>
+                    </div>
+                    <div class="mb-4">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Agregar Usuario">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <div th:fragment="usuarios_edit">
+            <div class="container">
+                <form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario}">
+                    <div class="mb-3">
+                    <label>User: </label>
+                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario.user}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Pass: </label>
+                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario.pass}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Rol: </label>
+                    <select name="rol" th:field="*{rol}" th:value="${usuario.rol}">
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Vendedor</option>
+                        <option value="3">Cliente</option>
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                    <label>Nombre Completo: </label>
+                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario.nombre}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Dni: </label>
+                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario.dni}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Direccion: </label>
+                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario.direccion}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Telefono: </label>
+                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario.telefono}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Sucursal: </label>
+                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario.sucursal}"/>
+                    </div>
+                    <div class="mb-4">
+
+                    
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Agregar Usuario</button>
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+        
+        <div th:fragment="usuarios_delete">
+            <div class="container">
+                <form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario}">
+                    <div class="mb-3">
+                    <label>User: </label>
+                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario.user}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Pass: </label>
+                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario.pass}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Rol: </label>
+                    <select name="rol" th:field="*{rol}" th:value="${usuario.rol}">
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Vendedor</option>
+                        <option value="3">Cliente</option>
+                    </select>
+                    </div>
+                    <div class="mb-3">
+                    <label>Nombre Completo: </label>
+                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario.nombre}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Dni: </label>
+                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario.dni}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Direccion: </label>
+                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario.direccion}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Telefono: </label>
+                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario.telefono}"/>
+                    </div>
+                    <div class="mb-3">
+                    <label>Sucursal: </label>
+                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario.sucursal}"/>
+                    </div>
+                    <div class="mb-4">
+
+                    
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" th:href="@{/admin/usuarios/add}">Agregar Usuario</button>
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+
+
+    </body>
+</html>
