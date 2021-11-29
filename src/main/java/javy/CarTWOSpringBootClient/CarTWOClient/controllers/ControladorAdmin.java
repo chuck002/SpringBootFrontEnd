@@ -10,8 +10,13 @@ import java.util.List;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Reserva;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Usuario;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Vehiculo;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +46,8 @@ public class ControladorAdmin {
     @RequestMapping("/usuarios/all")
     public String getAllUser(Model modelo, @RequestParam(name = "id") int id) {
         Usuario tmp = new Usuario();
-        for(Usuario u: usuarios){
-            if(id == u.getId()){
+        for (Usuario u : usuarios) {
+            if (id == u.getId()) {
                 tmp = u;
             }
         }
@@ -54,12 +59,12 @@ public class ControladorAdmin {
 
         return "vista_administrador";
     }
-    
+
     @RequestMapping("/vehiculos/all")
     public String getAllVehicle(Model modelo, @RequestParam(name = "id") int id) {
         Usuario tmp = new Usuario();
-        for(Usuario u: usuarios){
-            if(id == u.getId()){
+        for (Usuario u : usuarios) {
+            if (id == u.getId()) {
                 tmp = u;
             }
         }
@@ -71,68 +76,61 @@ public class ControladorAdmin {
 
         return "vista_administrador";
     }
-   /* 
-    @PostMapping(value = "/usuarios/add",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<UnicornResponse> createUnicornByEntity(@RequestBody UnicornDTO unicornDto) throws RestClientException, JsonProcessingException {		
-	return restTemplate.postForEntity(
-	    "https://crudcrud.com/api/72dbefb3917c4ce1b7bb17776fcf98e9/unicorns",
-        unicornDto,
-        UnicornResponse.class);
-}
-    */
+
     @PostMapping("/usuarios/add")
-    public String AddUser(Model modelo, @RequestParam(name="user") String user,
-            @RequestParam(name="pass") String pass,
-            @RequestParam(name="rol") int rol,
-            @RequestParam(name="nombre") String nombre,
-            @RequestParam(name="dni") int dni,
-            @RequestParam(name="direccion") String direccion,
-            @RequestParam(name="telefono") String telefono,
-            @RequestParam(name="sucursal") int sucursal
-            )
-    {
-        
-        modelo.addAttribute("user", user);
-        modelo.addAttribute("pass", pass);
-        modelo.addAttribute("rol", rol);
-        modelo.addAttribute("nombre", nombre);
-        modelo.addAttribute("dni", dni);
-        modelo.addAttribute("direccion", direccion);
-        modelo.addAttribute("telefono", telefono);
-        modelo.addAttribute("sucursal", sucursal);
-        return "holamundo";
-        
-       //usuario_add.setId(null);
-       //RestTemplate rtAdd = new RestTemplate();
-       
-       //Usuario Usuario_otro = new Usuario(11, "venta4", "venta4", 2, "Pepe", 23233223, "caaa", "5555", 3);
-       
-       //ResponseEntity<Usuario> entity = rtAdd.postForEntity("http://localhost:9090/usuarios/add", usuario_add, Usuario.class);
-       
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.setContentType(MediaType.APPLICATION_JSON);
-        //headers.setContentType(MediaType.APPLICATION_JSON);
-       
-        //HttpEntity<Usuario> request = new HttpEntity<>(new Usuario(null, user,pass,rol,nombre,dni,direccion,telefono,sucursal));
-        
-        //Usuario us = rtAdd.postForObject("http://localhost:9090/usuarios/add", request, Usuario.class);
-       /* 
+    public String AddUser(Model modelo, @RequestParam(name = "user") String user,
+            @RequestParam(name = "pass") String pass,
+            @RequestParam(name = "rol") int rol,
+            @RequestParam(name = "nombre") String nombre,
+            @RequestParam(name = "dni") int dni,
+            @RequestParam(name = "direccion") String direccion,
+            @RequestParam(name = "telefono") String telefono,
+            @RequestParam(name = "sucursal") int sucursal,
+            @RequestParam(name = "id") int id
+    ) {
+
+        RestTemplate rtAdd = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Usuario> request = new HttpEntity<>(new Usuario(null, user, pass, rol, nombre, dni, direccion, telefono, sucursal), headers);
+
+        Usuario u = rtAdd.postForObject("http://localhost:9090/usuarios/add", request, Usuario.class);
+
         Usuario tmp = new Usuario();
-        for(Usuario u: usuarios){
-            if(id == u.getId()){
-                tmp = u;
+        for (Usuario us : usuarios) {
+            if (id == us.getId()) {
+                tmp = us;
             }
         }
-        modelo.addAttribute("usuario", tmp); 
+        Usuario[] usuariosArray2 = rt.getForObject("http://localhost:9090/usuarios/all", Usuario[].class);
+        List<Usuario> usuarios2 = Arrays.asList(usuariosArray2);
+        modelo.addAttribute("usuario", tmp);
         modelo.addAttribute("datos_reservas", reservas);
         modelo.addAttribute("datos_vehiculos", vehiculos);
-        modelo.addAttribute("datos_usuarios", usuarios);
+        modelo.addAttribute("datos_usuarios", usuarios2);
         modelo.addAttribute("active", 1);
 
         return "vista_administrador";
-*/
+
+    }
+    
+    @GetMapping("usuarios/edit/{id}")
+    public String modalUpdateUser(@PathVariable("id") int id, Model modelo){
+        
+        Usuario usuario_edit = new Usuario();
+        
+        RestTemplate rtEdit = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String url = "http://localhost:9090/usuarios/edit/"+id;
+        Usuario user = rtEdit.getForObject(url , Usuario.class);
+        
+        modelo.addAttribute("usuario_edit", user);
+        
+        return "template/admin_forms_template::usuarios_edit";
     }
 
 }

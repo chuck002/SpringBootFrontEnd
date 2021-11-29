@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<head th:replace="template/main_template::general_head">
+</head>
+<body>
+    <header th:replace="template/main_template::general_header_admin"></header>
+
+    <br>
+    <div class="container" th:switch="${action}">
+        <div th:case="ADD">
+            
+        </div>
+        <div th:case="EDIT">
+            
+        </div>
+        <div th:case="DELETE">
+            
+        </div>
+        
+        
+    </div>
+
+    <footer th:replace="template/main_template::general_footer"></footer>
+
+</body>
+</html>
+

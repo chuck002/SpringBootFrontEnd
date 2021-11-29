@@ -97,7 +97,7 @@ public class ControladorLogin {
                 vista = "vista_error";
                 break;
         }
-        modelo.addAttribute("nombre", us.getNombre());
+        //modelo.addAttribute("nombre", us.getNombre());
         modelo.addAttribute("usuario", us);
         return vista;
     }

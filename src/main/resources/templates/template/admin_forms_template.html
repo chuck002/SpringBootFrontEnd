@@ -4,19 +4,19 @@
 
         <div th:fragment="usuarios_add">
             <div class="container">
-                <!--<form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario_add}" >-->
-                <form method="post" th:action="@{/admin/usuarios/add}" >
+                <form method="post" th:action="@{/admin/usuarios/add}">
+      
                     <div class="mb-3">
                     <label>User: </label>
-                    <input type="text" required="true"  name="user"/>
+                    <input type="text" name="user" required="true"/>
                     </div>
                     <div class="mb-3">
                     <label>Pass: </label>
-                    <input type="text" required="true"  name="pass"/>
+                    <input type="text" name="pass" required="true"/>
                     </div>
                     <div class="mb-3">
                     <label>Rol: </label>
-                    <select  name="rol" >
+                    <select name="rol">
                         <option value="1" selected>Administrador</option>
                         <option value="2">Vendedor</option>
                         <option value="3">Cliente</option>
@@ -24,15 +24,15 @@
                     </div>
                     <div class="mb-3">
                     <label>Nombre Completo: </label>
-                    <input type="text" required="true"  name="nombre"/>
+                    <input type="text" name="nombre" required="true" />
                     </div>
                     <div class="mb-3">
                     <label>Dni: </label>
-                    <input type="text"  name="dni"/>
+                    <input type="text" name="dni"/>
                     </div>
                     <div class="mb-3">
                     <label>Direccion: </label>
-                    <input type="text" name="direccion"/>
+                    <input type="text"  name="direccion"/>
                     </div>
                     <div class="mb-3">
                     <label>Telefono: </label>
@@ -42,8 +42,8 @@
                     <label>Sucursal: </label>
                     <input type="number" name="sucursal"/>
                     </div>
+                    <input type="hidden" name="id" th:value="${usuario.id}">
                     <div class="mb-4">
-
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <input type="submit" class="btn btn-primary" value="Agregar Usuario">
 
@@ -55,14 +55,14 @@
 
         <div th:fragment="usuarios_edit">
             <div class="container">
-                <form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario}">
+                <form method="post" th:action="@{/admin/usuarios/useredit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
                     <div class="mb-3">
                     <label>User: </label>
-                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario.user}"/>
+                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario_edit.user}"/>
                     </div>
                     <div class="mb-3">
                     <label>Pass: </label>
-                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario.pass}"/>
+                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario_edit.pass}"/>
                     </div>
                     <div class="mb-3">
                     <label>Rol: </label>
@@ -74,23 +74,23 @@
                     </div>
                     <div class="mb-3">
                     <label>Nombre Completo: </label>
-                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario.nombre}"/>
+                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario_edit.nombre}"/>
                     </div>
                     <div class="mb-3">
                     <label>Dni: </label>
-                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario.dni}"/>
+                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario_edit.dni}"/>
                     </div>
                     <div class="mb-3">
                     <label>Direccion: </label>
-                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario.direccion}"/>
+                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario_edit.direccion}"/>
                     </div>
                     <div class="mb-3">
                     <label>Telefono: </label>
-                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario.telefono}"/>
+                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario_edit.telefono}"/>
                     </div>
                     <div class="mb-3">
                     <label>Sucursal: </label>
-                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario.sucursal}"/>
+                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
                     </div>
                     <div class="mb-4">
 
