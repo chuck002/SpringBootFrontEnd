@@ -32,49 +32,48 @@ public class ControladorAdmin {
 
     RestTemplate rt = new RestTemplate();
     //Recibimos como un array y casteamos luego a List
-    Usuario[] usuariosArray = rt.getForObject("http://localhost:9090/usuarios/all", Usuario[].class);
-    List<Usuario> usuarios = Arrays.asList(usuariosArray);
+    Usuario[] usuariosArray;
+    List<Usuario> usuarios;
 
     RestTemplate rtVe = new RestTemplate();
-    Vehiculo[] vehiculosArray = rtVe.getForObject("http://localhost:9090/vehiculos/all", Vehiculo[].class);
-    List<Vehiculo> vehiculos = Arrays.asList(vehiculosArray);
+    Vehiculo[] vehiculosArray;
+    List<Vehiculo> vehiculos;
 
     RestTemplate rtRe = new RestTemplate();
-    Reserva[] reservasArray = rtRe.getForObject("http://localhost:9090/reservas/all", Reserva[].class);
-    List<Reserva> reservas = Arrays.asList(reservasArray);
+    Reserva[] reservasArray;
+    List<Reserva> reservas;
 
     @RequestMapping("/usuarios/all")
     public String getAllUser(Model modelo, @RequestParam(name = "id") int id) {
+        cargarDatosAdmin();
         Usuario tmp = new Usuario();
-        for (Usuario u : usuarios) {
+        for (Usuario u : this.usuarios) {
             if (id == u.getId()) {
                 tmp = u;
             }
         }
         modelo.addAttribute("usuario", tmp);
-        modelo.addAttribute("datos_reservas", reservas);
-        modelo.addAttribute("datos_vehiculos", vehiculos);
-        modelo.addAttribute("datos_usuarios", usuarios);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
         modelo.addAttribute("active", 1);
 
         return "vista_administrador";
     }
 
-    @RequestMapping("/vehiculos/all")
-    public String getAllVehicle(Model modelo, @RequestParam(name = "id") int id) {
+    @GetMapping("/usuarios/add")
+    public String AddUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
         Usuario tmp = new Usuario();
-        for (Usuario u : usuarios) {
+        cargarDatosAdmin();
+        for (Usuario u : this.usuarios) {
             if (id == u.getId()) {
                 tmp = u;
             }
         }
         modelo.addAttribute("usuario", tmp);
-        modelo.addAttribute("datos_reservas", reservas);
-        modelo.addAttribute("datos_vehiculos", vehiculos);
-        modelo.addAttribute("datos_usuarios", usuarios);
-        modelo.addAttribute("active", 0);
+        modelo.addAttribute("action", action);
 
-        return "vista_administrador";
+        return "vista_administrador_crud";
     }
 
     @PostMapping("/usuarios/add")
@@ -99,27 +98,74 @@ public class ControladorAdmin {
         Usuario u = rtAdd.postForObject("http://localhost:9090/usuarios/add", request, Usuario.class);
 
         Usuario tmp = new Usuario();
-        for (Usuario us : usuarios) {
+        for (Usuario us : this.usuarios) {
             if (id == us.getId()) {
                 tmp = us;
             }
         }
-        Usuario[] usuariosArray2 = rt.getForObject("http://localhost:9090/usuarios/all", Usuario[].class);
-        List<Usuario> usuarios2 = Arrays.asList(usuariosArray2);
+        cargarDatosAdmin();
         modelo.addAttribute("usuario", tmp);
-        modelo.addAttribute("datos_reservas", reservas);
-        modelo.addAttribute("datos_vehiculos", vehiculos);
-        modelo.addAttribute("datos_usuarios", usuarios2);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
         modelo.addAttribute("active", 1);
 
         return "vista_administrador";
 
     }
-    
+
     @GetMapping("usuarios/edit/{id}")
-    public String modalUpdateUser(@PathVariable("id") int id, Model modelo){
-        
-        Usuario usuario_edit = new Usuario();
+    public String UpdateUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+
+        cargarDatosAdmin();
+        Usuario tmp = new Usuario();
+        for (Usuario u : this.usuarios) {
+            if (id == u.getId()) {
+                tmp = u;
+            }
+        }
+ 
+        modelo.addAttribute("usuario_edit", tmp);
+        modelo.addAttribute("action", action);
+
+        return "vista_administrador_crud";
+    }
+
+    @PostMapping("usuarios/edit/{id}")
+    public String UpdateUser(Model modelo, Usuario usuario, @RequestParam(name = "user_id") int user_id) {
+
+        RestTemplate rtEdit = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Usuario> request = new HttpEntity<>(usuario, headers);
+
+        String url = "http://localhost:9090/usuarios/edit/" + usuario.getId();
+        rtEdit.put(url, request, Usuario.class);
+
+        cargarDatosAdmin();
+
+        Usuario tmp = new Usuario();
+        for (Usuario us : this.usuarios) {
+            if (user_id == us.getId()) {
+                tmp = us;
+            }
+        }
+
+        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
+        modelo.addAttribute("active", 1);
+
+        return "vista_administrador";
+    }
+
+    @GetMapping("usuarios/delete/{id}")
+    public String DeleteUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+
+        /* Usuario usuario_edit = new Usuario();
         
         RestTemplate rtEdit = new RestTemplate();
 
@@ -129,8 +175,49 @@ public class ControladorAdmin {
         Usuario user = rtEdit.getForObject(url , Usuario.class);
         
         modelo.addAttribute("usuario_edit", user);
-        
-        return "template/admin_forms_template::usuarios_edit";
+         */
+        Usuario tmp = new Usuario();
+        for (Usuario u : this.usuarios) {
+            if (id == u.getId()) {
+                tmp = u;
+            }
+        }
+        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("action", action);
+
+        return "vista_administrador_crud";
+    }
+
+    @RequestMapping("/vehiculos/all")
+    public String getAllVehicle(Model modelo, @RequestParam(name = "id") int id) {
+        cargarDatosAdmin();
+        Usuario tmp = new Usuario();
+        for (Usuario u : this.usuarios) {
+            if (id == u.getId()) {
+                tmp = u;
+            }
+        }
+        cargarDatosAdmin();
+        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
+        modelo.addAttribute("active", 0);
+
+        return "vista_administrador";
+    }
+
+    private void cargarDatosAdmin() {
+
+        //Recibimos como un array y casteamos luego a List
+        usuariosArray = rt.getForObject("http://localhost:9090/usuarios/all", Usuario[].class);
+        usuarios = Arrays.asList(usuariosArray);
+
+        vehiculosArray = rtVe.getForObject("http://localhost:9090/vehiculos/all", Vehiculo[].class);
+        vehiculos = Arrays.asList(vehiculosArray);
+
+        reservasArray = rtRe.getForObject("http://localhost:9090/reservas/all", Reserva[].class);
+        reservas = Arrays.asList(reservasArray);
     }
 
 }

@@ -7,13 +7,11 @@ package javy.CarTWOSpringBootClient.CarTWOClient.controllers;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.sound.midi.MidiDevice;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Reserva;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Usuario;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Vehiculo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,13 +70,11 @@ public class ControladorLogin {
 
         switch (us.getRol()) {
             case 1:
-                Usuario usuario_add = new Usuario();
                 
                 modelo.addAttribute("datos_reservas", reservas);
                 modelo.addAttribute("datos_vehiculos", vehiculos);
                 modelo.addAttribute("datos_usuarios", usuarios);
                 
-                modelo.addAttribute("usuario_add", usuario_add);
                 modelo.addAttribute("active", 1);
                 vista = "vista_administrador";
                 break;
@@ -97,7 +93,7 @@ public class ControladorLogin {
                 vista = "vista_error";
                 break;
         }
-        //modelo.addAttribute("nombre", us.getNombre());
+
         modelo.addAttribute("usuario", us);
         return vista;
     }

@@ -55,7 +55,7 @@
 
         <div th:fragment="usuarios_edit">
             <div class="container">
-                <form method="post" th:action="@{/admin/usuarios/useredit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
+                <form method="post" th:action="@{/admin/usuarios/edit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
                     <div class="mb-3">
                     <label>User: </label>
                     <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario_edit.user}"/>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="mb-3">
                     <label>Rol: </label>
-                    <select name="rol" th:field="*{rol}" th:value="${usuario.rol}">
+                    <select name="rol" th:field="*{rol}" th:value="${usuario_edit.rol}">
                         <option value="1" selected>Administrador</option>
                         <option value="2">Vendedor</option>
                         <option value="3">Cliente</option>
@@ -92,11 +92,12 @@
                     <label>Sucursal: </label>
                     <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
                     </div>
+                    <input type="hidden" name="user_id" th:value="${usuario_edit.id}">
                     <div class="mb-4">
 
                     
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Agregar Usuario</button>
+                        <button type="button" href="" class="btn btn-secondary">Volver Atras</button>
+                        <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
 
                     </div>
                 </form>
@@ -106,7 +107,7 @@
         
         <div th:fragment="usuarios_delete">
             <div class="container">
-                <form method="post" th:action="@{/admin/usuarios/add}" th:object="${usuario}">
+                <form method="post" th:action="@{/admin/usuarios/delete/{id}(id=${usuario.id})}" th:object="${usuario}">
                     <div class="mb-3">
                     <label>User: </label>
                     <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario.user}"/>
@@ -146,8 +147,8 @@
                     <div class="mb-4">
 
                     
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" th:href="@{/admin/usuarios/add}">Agregar Usuario</button>
+                        <button type="button" class="btn btn-secondary">Cerrar</button>
+                        <button type="button" class="btn btn-primary" th:href="@{/admin/usuarios/delete}">Eliminar Usuario</button>
 
                     </div>
                 </form>

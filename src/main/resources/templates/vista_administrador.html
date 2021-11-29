@@ -15,9 +15,13 @@ and open the template in the editor.
         <div>
             </h1>
             <h1>Usuarios</h1>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddUser">
-                Agregar Nuevo Usuario
-            </button>
+            <form method="get" th:action="@{/admin/usuarios/add}">
+                <input type="hidden" name="action" th:value="ADD">
+                <input type="hidden" name="id" th:value="${usuario.id}">
+                <button type="submit" class="btn btn-primary" >
+                    Agregar Nuevo Usuario
+                </button>
+            </form>
             <br>
         </div>
         <table class="table table-bordered table-success table-striped table-hover" >
@@ -39,7 +43,7 @@ and open the template in the editor.
             <tbody>
             <c:forEach var="usuario" items="${datos_usuarios}">
                 <tr th:each="usuario : ${datos_usuarios}">
-                    <td id="userId" th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.id}"></td>
                     <td th:text="${usuario.user}"></td>
                     <td th:text="${usuario.pass}"></td>
                     <td th:text="${usuario.rol}"></td>
@@ -48,11 +52,21 @@ and open the template in the editor.
                     <td th:text="${usuario.direccion}"></td>
                     <td th:text="${usuario.telefono}"></td>
                     <td th:text="${usuario.sucursal}"></td>
-                    <td><button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#EditUser" onclick="editUser()">
-       Editar
-    </button>
-                        <a href="@{usuarios/edit/{id}(id=${usuario.id})" class="btn btn-sm btn-warning">Editar</a></td>
-                    <td><a href="@{usuarios/delete/{id}(id=${usuario.id})" class="btn btn-sm btn-danger">Eliminar</a></td>
+                    <td><form method="get" th:action="@{/admin/usuarios/edit/{id}(id=${usuario.id})}">
+                            <input type="hidden" name="action" th:value="EDIT">
+                            <input type="hidden" name="id" th:value="${usuario.id}">
+                            <button type="submit" class="btn btn-sm btn-warning" >
+                                Editar
+                            </button>
+                        </form></td>
+                    <td><form method="get" th:action="@{/admin/usuarios/delete/{id}(id=${usuario.id})}">
+                            <input type="hidden" name="action" th:value="DELETE">
+                            <input type="hidden" name="id" th:value="${usuario.id}">
+                            <button type="submit" class="btn btn-sm btn-danger" >
+                                Eliminar
+                            </button>
+                        </form></td>
+
                 </tr>
                 </tbody>
         </table>
@@ -118,66 +132,12 @@ and open the template in the editor.
                 <div class="modal-body">
                     <div th:replace="template/admin_forms_template::usuarios_add"></div>
                 </div>
-                
-            </div>
-        </div>
-    </div>
 
-    
-    <!-- Modal Editar -->
-    <div class="modal fade" id="EditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div th:replace="template/admin_forms_template::usuarios_edit"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-    </button>
-
-    <!-- Modal Eliminar -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>
 
     <footer th:replace="template/main_template::general_footer"></footer>
-    <script type="text/javascript">
-        function editUser(){
-            let url = '/admin/usuarios/edit/';
-            
-            if($('#userId').val() !== ''){
-                url = url + $('#userId').val();
-            }
-            
-           $('#EditUser').load(url);
-        }
-    </script>
+
 </body>
 </html>

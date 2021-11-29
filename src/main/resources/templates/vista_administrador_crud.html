@@ -8,18 +8,17 @@ and open the template in the editor.
 <head th:replace="template/main_template::general_head">
 </head>
 <body>
-    <header th:replace="template/main_template::general_header_admin"></header>
 
     <br>
     <div class="container" th:switch="${action}">
-        <div th:case="ADD">
-            
+        <div th:case="ADD" class="container">
+            <div th:replace="template/admin_forms_template::usuarios_add"></div>
         </div>
         <div th:case="EDIT">
-            
+            <div th:replace="template/admin_forms_template::usuarios_edit"></div>
         </div>
         <div th:case="DELETE">
-            
+            <div th:replace="template/admin_forms_template::usuarios_delete"></div>
         </div>
         
         
