@@ -21,12 +21,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Reserva {
 
-    private int id;
+    private Integer id;
     private Date fecha_inicio;
     private Date fecha_final;
-    private double precio_total;
-    private int id_oficina;
-    private int id_cliente;
+    private Double precio_total;
+    private Integer id_oficina;
+    private Integer id_cliente;
     private List<Vehiculo> vehiculos_entregados;
     private List<Vehiculo> vehiculos_reservados;
 

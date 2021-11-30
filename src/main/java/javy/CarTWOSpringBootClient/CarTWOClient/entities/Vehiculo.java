@@ -5,7 +5,6 @@
  */
 package javy.CarTWOSpringBootClient.CarTWOClient.entities;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +19,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Vehiculo {
 
-    private int Id;
-    private double precio_alquiler;
-    private double litros_combustible;
-    private int entregado;
+    private Integer id;
+    private Double precio_alquiler;
+    private Double litros_combustible;
+    private Integer entregado;
     private String patente;
     private String modelo;
     private String marca;

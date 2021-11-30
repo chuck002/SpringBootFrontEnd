@@ -41,7 +41,7 @@
 </header>
     <header th:fragment="general_header_cliente">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
+		<div class="container-fluid" style="justify-content: space-between;">
                     <a class="navbar-brand"> Bienvenido Sr. <span th:text="${usuario.nombre}"></span> </a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -49,16 +49,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item" >
-						<a th:class="(${active} eq 1)? 'nav-link active' : 'nav-link'" aria-current="page" th:href="@{/admin/usuarios/all(nombre=${nombre})}">Usuarios</a>
-					</li>
-					<li class="nav-item">
-						<a th:class="(${active} eq 0)? 'nav-link active' : 'nav-link'" th:href="@{/admin/vehiculos/all(nombre=${nombre})}" tabindex="-1"
-							aria-disabled="true">Vehiculos</a>
-					</li>
-				</ul>
-				<form class="d-flex" th:action="@{/}">
+				
+				<form class="d-flex" th:action="@{/}" >
 					<button class="btn btn-outline-success" type="submit">Cerrar Sesion</button>
 				</form>
 			</div>

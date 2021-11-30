@@ -11,14 +11,23 @@ and open the template in the editor.
 
     <br>
     <div class="container" th:switch="${action}">
-        <div th:case="ADD" class="container">
+        <div th:case="ADD_USER" class="container">
             <div th:replace="template/admin_forms_template::usuarios_add"></div>
         </div>
-        <div th:case="EDIT">
+        <div th:case="EDIT_USER">
             <div th:replace="template/admin_forms_template::usuarios_edit"></div>
         </div>
-        <div th:case="DELETE">
+        <div th:case="DELETE_USER">
             <div th:replace="template/admin_forms_template::usuarios_delete"></div>
+        </div>
+        <div th:case="ADD_VEHICLE" class="container">
+            <div th:replace="template/admin_forms_template::vehiculos_add"></div>
+        </div>
+        <div th:case="EDIT_VEHICLE">
+            <div th:replace="template/admin_forms_template::vehiculos_edit"></div>
+        </div>
+        <div th:case="DELETE_VEHICLE">
+            <div th:replace="template/admin_forms_template::vehiculos_delete"></div>
         </div>
         
         

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang=”es” xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <div th:fragment="cliente_add">
+            <div class="container">
+                <h1>Agregar Cliente</h1>
+                <form method="post" th:action="@{/vendedor/clientes/add}">
+
+                    <div class="mb-3">
+                        <label>User: </label>
+                        <input type="text" name="user" required="true"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pass: </label>
+                        <input type="text" name="pass" required="true"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Rol: </label>
+                        <select name="rol">
+                            <option value="1" selected>Administrador</option>
+                            <option value="2">Vendedor</option>
+                            <option value="3">Cliente</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Nombre Completo: </label>
+                        <input type="text" name="nombre" required="true" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Dni: </label>
+                        <input type="text" name="dni"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Direccion: </label>
+                        <input type="text"  name="direccion"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Telefono: </label>
+                        <input type="text" name="telefono"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sucursal: </label>
+                        <input type="number" name="sucursal"/>
+                    </div>
+                    <input type="hidden" name="id" th:value="${usuario.id}">
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Agregar Cliente">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <div th:fragment="cliente_edit">
+            <div class="container">
+                <h1>Editar Cliente</h1>
+                <form method="post" th:action="@{/vendedor/clientes/edit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
+                    <div class="mb-3">
+                        <label>User: </label>
+                        <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario_edit.user}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pass: </label>
+                        <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario_edit.pass}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Rol: </label>
+                        <input type="text" name="rol" required="true" th:field="*{rol}" th:value="${usuario_edit.rol}" disabled="true"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Nombre Completo: </label>
+                        <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario_edit.nombre}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dni: </label>
+                        <input type="text" name="dni" th:field="*{dni}" th:value="${usuario_edit.dni}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Direccion: </label>
+                        <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario_edit.direccion}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Telefono: </label>
+                        <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario_edit.telefono}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sucursal: </label>
+                        <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
+                    </div>
+                    <input type="hidden" name="user_id" th:value="${id}">
+                    <div class="mb-4">
+
+
+                        <button type="button" href="" class="btn btn-secondary">Volver Atras</button>
+                        <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <div th:fragment="cliente_delete">
+            <div class="container">
+                <h1>Eliminar Cliente</h1>
+                <form method="post" th:action="@{/vendedor/clientes/delete/{id}(id=${usuario_delete.id})}" th:object="${usuario_delete}">
+                    <div class="mb-3">
+                        <label>User: <span th:text="${usuario_delete.user}"</span> </label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pass: <span th:text="${usuario_delete.pass}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Rol: <span th:text="${usuario_delete.rol}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Nombre Completo: <span th:text="${usuario_delete.nombre}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dni: <span th:text="${usuario_delete.dni}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Direccion: <span th:text="${usuario_delete.direccion}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Telefono: <span th:text="${usuario_delete.telefono}"</span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Sucursal: <span th:text="${usuario_delete.sucursal}"</span></label>
+                    </div>
+                    <input type="hidden" name="user_id" th:value="${id}">
+                    <div class="mb-4">
+
+
+                        <button type="button" class="btn btn-secondary">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Eliminar Cliente</button>
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <!-- Fragments para Reservas -->
+
+        <div th:fragment="reserva_add">
+            <div class="container">
+                <h1>Agregar Reserva</h1>
+                <form method="post" th:action="@{/vendedor/reservas/add}">
+
+                    <div class="mb-3">
+                        <label>Fecha de Inicio: </label>
+                        <input type="date" name="fecha_inicio" required="true"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha de Finalizacion: </label>
+                        <input type="date" name="fecha_final" required="true"/>
+                    </div>
+
+                    <label>Id Cliente: </label>
+                    <select name="id_cliente">
+                        <div th:each="cliente : ${clientes}" th:if="${cliente.rol eq 3}">
+                            <option value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
+                        </div>
+                    </select><br>
+                    <label>Seleccionar Vehiculos: </label>
+                    <table class="centrada">
+                        <thead>
+                        <td>Agregar Vehiculo</td>
+                        <td>Id Vehiculo</td>
+                        <td>Precio de Alquiler</td>
+                        <td>Litros en Tanque</td>
+                        <td>Fue Entregado</td>
+                        <td>Patente</td>
+                        <td>Modelo</td>
+                        <td>Marca</td>
+                        <td>Color</td>
+                        </thead>
+                        <tbody>
+
+                            <tr th:each="vehiculo : ${vehiculos}">
+                                <td><input type="checkbox" name="vehiculos_reservados[]" value="${vehiculo.id}"></td>
+                                <td th:text="${vehiculo.id}"></td>
+                                <td th:text="${vehiculo.precio_alquiler}"></td>
+                                <td th:text="${vehiculo.litros_combustible}"></td>
+                                <td th:if="${vehiculo.entregado == 0}">
+                                    No
+                                </td>
+                                <td th:if="${vehiculo.entregado == 1}">
+                                    Si
+                                </td>
+                                <td th:text="${vehiculo.patente}"></td>
+                                <td th:text="${vehiculo.modelo}"></td>
+                                <td th:text="${vehiculo.marca}"></td>
+                                <td th:text="${vehiculo.color}"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="mb-3">
+                        <label>Id Oficina: </label>
+                        <input type="number" name="id_oficina" required="true"/>
+                    </div>
+
+                    <input type="hidden" name="id" th:value="${usuario.id}">
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Agregar Reserva">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <div th:fragment="reserva_edit">
+            <div class="container">
+                <h1>Editar Reserva</h1>
+                <form method="post" th:action="@{/vendedor/reservas/edit/{id}(id=${reserva_edit.id})}" th:object="${reserva_edit}">
+                    <div class="mb-3">
+                        <label>Fecha de Inicio: </label>
+                        <input type="date" name="fecha_inicio" required="true"/>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha de Finalizacion: </label>
+                        <input type="date" name="fecha_final" required="true"/>
+                    </div>
+
+                    <label>Id Cliente: </label>
+                    <select name="id_cliente">
+                        <div th:each="cliente : ${clientes}" th:if="${cliente.rol eq 3}">
+                            <option value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
+                        </div>
+                    </select><br>
+                    <label>Seleccionar Vehiculos: </label>
+                    <table class="centrada">
+                        <thead>
+                        <td>Agregar Vehiculo</td>
+                        <td>Id Vehiculo</td>
+                        <td>Precio de Alquiler</td>
+                        <td>Litros en Tanque</td>
+                        <td>Fue Entregado</td>
+                        <td>Patente</td>
+                        <td>Modelo</td>
+                        <td>Marca</td>
+                        <td>Color</td>
+                        </thead>
+                        <tbody>
+
+                            <tr th:each="vehiculo : ${vehiculos}">
+                                <td><input type="checkbox" name="vehiculos_reservados[]" value="${vehiculo.id}"></td>
+                                <td th:text="${vehiculo.id}"></td>
+                                <td th:text="${vehiculo.precio_alquiler}"></td>
+                                <td th:text="${vehiculo.litros_combustible}"></td>
+                                <td th:if="${vehiculo.entregado == 0}">
+                                    No
+                                </td>
+                                <td th:if="${vehiculo.entregado == 1}">
+                                    Si
+                                </td>
+                                <td th:text="${vehiculo.patente}"></td>
+                                <td th:text="${vehiculo.modelo}"></td>
+                                <td th:text="${vehiculo.marca}"></td>
+                                <td th:text="${vehiculo.color}"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="mb-3">
+                        <label>Id Oficina: </label>
+                        <input type="number" name="id_oficina" required="true"/>
+                    </div>
+
+                    <input type="hidden" name="id" th:value="${id}">
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Modificar Reserva">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+        <div th:fragment="reserva_delete">
+            <div class="container">
+                <h1>Eliminar Reserva</h1>
+                <form method="post" th:action="@{/vendedor/reservas/delete/{id}(id=${reserva_delete.id})}" th:object="${reserva_delete}">
+                    <div class="mb-3">
+                        <label>Fecha de Inicio: <span th:text="${reserva_delete.fecha_inicio}"></span></label>
+
+                    </div>
+                    <div class="mb-3">
+                        <label>Fecha de Finalizacion: <span th:text="${reserva_delete.fecha_final}"></span></label>
+
+                    </div>
+                    <div class="mb-3">
+                        <label>Id Cliente: <span th:text="${reserva_delete.id_cliente}"></span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Vehiculos Seleccionados</label>
+                        <table class="centrada">
+                            <thead>
+                            <td>Id Vehiculo</td>
+                            <td>Precio de Alquiler</td>
+                            <td>Litros en Tanque</td>
+                            <td>Fue Entregado</td>
+                            <td>Patente</td>
+                            <td>Modelo</td>
+                            <td>Marca</td>
+                            <td>Color</td>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="vehiculo : ${vehiculos}">
+                                    <td th:text="${vehiculo.id}"></td>
+                                    <td th:text="${vehiculo.precio_alquiler}"></td>
+                                    <td th:text="${vehiculo.litros_combustible}"></td>
+                                    <td th:if="${vehiculo.entregado == 0}">
+                                        No
+                                    </td>
+                                    <td th:if="${vehiculo.entregado == 1}">
+                                        Si
+                                    </td>
+                                    <td th:text="${vehiculo.patente}"></td>
+                                    <td th:text="${vehiculo.modelo}"></td>
+                                    <td th:text="${vehiculo.marca}"></td>
+                                    <td th:text="${vehiculo.color}"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Id Oficina: <span th:text="${reserva_delete.id_oficina}"></span></label>
+                    </div>
+                    <div class="mb-3">
+                        <label>Precio Total: <span th:text="${reserva_delete.precio_total}"></span></label>
+                    </div>
+
+                    <input type="hidden" name="user_id" th:value="${id}">
+                    <div class="mb-4">
+                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <input type="submit" class="btn btn-primary" value="Eliminar Reserva">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+
+    </body>
+</html>

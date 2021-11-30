@@ -12,9 +12,14 @@ and open the template in the editor.
 
     <div class="container" th:if="${active} eq 1">
         <h1>Clientes</h1>
-        <form th:action="@{/vendedor/clientes/add}"method="post" >
-            <input type="submit" value="Agregar Nuevo Cliente" class="btn btn-primary">
+        <form method="get" th:action="@{/vendedor/clientes/add}">
+            <input type="hidden" name="action" th:value="ADD_CLIENT">
+            <input type="hidden" name="id" th:value="${usuario.id}">
+            <button type="submit" class="btn btn-primary" >
+                Agregar Nuevo Cliente
+            </button>
         </form>
+        <br>
         <table class="table table-bordered table-success table-striped table-hover">
             <thead>
                 <tr>
@@ -31,48 +36,47 @@ and open the template in the editor.
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="usuario" items="${datos_usuarios}">
-                <c:if test="${usuario.rol == 3}">
-                    <tr th:each="usuario : ${datos_usuarios}" th:if="${usuario.rol eq 3}">
-                        <td th:text="${usuario.id}"></td>
-                        <td th:text="${usuario.user}"></td>
-                        <td th:text="${usuario.pass}"></td>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.dni}"></td>
-                        <td th:text="${usuario.direccion}"></td>
-                        <td th:text="${usuario.telefono}"></td>
-                        <td th:text="${usuario.sucursal}"></td>
-                        <td>
-                            <form action="ControladorVendedor" method="post">
-                                <input type="hidden" name="id" value="${usuario.id}"/>
-                                <input type="hidden" name="tipo" value="usuario"/>
-                                <input type="hidden" name="action" value="editar"/>
-                                <input type="submit" value="Editar" class="boton-update"/>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="ControladorVendedor" method="post">
-                                <input type="hidden" name="id" value="${usuario.id}"/>
-                                <input type="hidden" name="tipo" value="usuario"/>
-                                <input type="hidden" name="action" value="eliminar"/>
-                                <input type="submit" value="Eliminar" class="boton-delete"/>
-                            </form>
-                        </td>
+            <c:forEach var="cliente" items="${datos_usuarios}">
+                <c:if test="${cliente.rol == 3}">
+                    <tr th:each="cliente : ${datos_usuarios}" th:if="${cliente.rol eq 3}">
+                        <td th:text="${cliente.id}"></td>
+                        <td th:text="${cliente.user}"></td>
+                        <td th:text="${cliente.pass}"></td>
+                        <td th:text="${cliente.nombre}"></td>
+                        <td th:text="${cliente.dni}"></td>
+                        <td th:text="${cliente.direccion}"></td>
+                        <td th:text="${cliente.telefono}"></td>
+                        <td th:text="${cliente.sucursal}"></td>
+                        <td><form method="get" th:action="@{/vendedor/clientes/edit/{user_id}(user_id=${cliente.id})}">
+                                <input type="hidden" name="action" th:value="EDIT_CLIENT">
+                                <input type="hidden" name="id" th:value="${usuario.id}">
+                                <button type="submit" class="btn btn-sm btn-warning" >
+                                    Editar
+                                </button>
+                            </form></td>
+                        <td><form method="get" th:action="@{/vendedor/clientes/delete/{user_id}(user_id=${cliente.id})}">
+                                <input type="hidden" name="action" th:value="DELETE_CLIENT">
+                                <input type="hidden" name="id" th:value="${usuario.id}">
+                                <button type="submit" class="btn btn-sm btn-danger" >
+                                    Eliminar
+                                </button>
+                            </form></td>
                     </tr>
                     </tbody>
                     </table>
                     <br>
-                    <form action="ControladorVendedor"method="post">
-                        <input type="hidden" name="tipo" value="usuario"/>
-                        <input type="hidden" name="action" value="agregar"/>
-                        <input type="submit" value="Agregar Nuevo Cliente" class="boton-submit">
-                    </form>
+
                     </div>
                     <div class="container" th:if="${active} eq 0">
                         <h1>Reservas</h1>
-                        <form th:action="@{/vendedor/clientes/add}"method="post" >
-                            <input type="submit" value="Agregar Nueva Reserva" class="btn btn-primary">
+                        <form method="get" th:action="@{/vendedor/reservas/add}">
+                            <input type="hidden" name="action" th:value="ADD_RESERVA">
+                            <input type="hidden" name="id" th:value="${usuario.id}">
+                            <button type="submit" class="btn btn-primary" >
+                                Agregar Nueva Reserva
+                            </button>
                         </form>
+                        <br>
                         <table class="table table-bordered table-success table-striped table-hover">
                             <thead>
                                 <tr>
@@ -102,22 +106,20 @@ and open the template in the editor.
                                     <td>
                                         <a th:href="@{/vendedor/vehiculos/reservados}">Vehiculos Reservados</a>
                                     </td>
-                                    <td>
-                                        <form action="ControladorVendedor" method="post">
-                                            <input type="hidden" name="id" value="${reserva.id}"/>
-                                            <input type="hidden" name="tipo" value="reserva"/>
-                                            <input type="hidden" name="action" value="editar"/>
-                                            <input type="submit" value="Editar" class="boton-update"/>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="ControladorVendedor" method="post">
-                                            <input type="hidden" name="id" value="${reserva.id}"/>
-                                            <input type="hidden" name="tipo" value="reserva"/>
-                                            <input type="hidden" name="action" value="eliminar"/>
-                                            <input type="submit" value="Eliminar" class="boton-delete"/>
-                                        </form>
-                                    </td>
+                                    <td><form method="get" th:action="@{/vendedor/reservas/edit/{reserva_id}(reserva_id=${reserva.id})}">
+                                            <input type="hidden" name="action" th:value="EDIT_RESERVA">
+                                            <input type="hidden" name="id" th:value="${usuario.id}">
+                                            <button type="submit" class="btn btn-sm btn-warning" >
+                                                Editar
+                                            </button>
+                                        </form></td>
+                                    <td><form method="get" th:action="@{/vendedor/reservas/delete/{reserva_id}(reserva_id=${reserva.id})}">
+                                            <input type="hidden" name="action" th:value="DELETE_RESERVA">
+                                            <input type="hidden" name="id" th:value="${usuario.id}">
+                                            <button type="submit" class="btn btn-sm btn-danger" >
+                                                Eliminar
+                                            </button>
+                                        </form></td>
                                 </tr>
                             </tbody>
                         </table>

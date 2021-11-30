@@ -16,7 +16,7 @@ and open the template in the editor.
             </h1>
             <h1>Usuarios</h1>
             <form method="get" th:action="@{/admin/usuarios/add}">
-                <input type="hidden" name="action" th:value="ADD">
+                <input type="hidden" name="action" th:value="ADD_USER">
                 <input type="hidden" name="id" th:value="${usuario.id}">
                 <button type="submit" class="btn btn-primary" >
                     Agregar Nuevo Usuario
@@ -53,14 +53,14 @@ and open the template in the editor.
                     <td th:text="${usuario_edit.telefono}"></td>
                     <td th:text="${usuario_edit.sucursal}"></td>
                     <td><form method="get" th:action="@{/admin/usuarios/edit/{user_id}(user_id=${usuario_edit.id})}">
-                            <input type="hidden" name="action" th:value="EDIT">
+                            <input type="hidden" name="action" th:value="EDIT_USER">
                             <input type="hidden" name="id" th:value="${usuario.id}">
                             <button type="submit" class="btn btn-sm btn-warning" >
                                 Editar
                             </button>
                         </form></td>
                     <td><form method="get" th:action="@{/admin/usuarios/delete/{user_id}(user_id=${usuario_edit.id})}">
-                            <input type="hidden" name="action" th:value="DELETE">
+                            <input type="hidden" name="action" th:value="DELETE_USER">
                             <input type="hidden" name="id" th:value="${usuario.id}">
                             <button type="submit" class="btn btn-sm btn-danger" >
                                 Eliminar
@@ -76,10 +76,13 @@ and open the template in the editor.
     <div class="container" th:if="${active} eq 0">
 
         <h1>Vehiculos</h1>
-        <form th:action="@{/admin/vehiculos/add}" method="post">
-
-            <input type="submit" value="Agregar Nuevo Vehiculo" class="btn btn-primary">
-        </form>
+        <form method="get" th:action="@{/admin/vehiculos/add}">
+                <input type="hidden" name="action" th:value="ADD_VEHICLE">
+                <input type="hidden" name="id" th:value="${usuario.id}">
+                <button type="submit" class="btn btn-primary" >
+                    Agregar Nuevo Vehiculo
+                </button>
+            </form>
         <br>
         <table class="table table-bordered table-success table-striped table-hover">
             <thead>
@@ -107,8 +110,20 @@ and open the template in the editor.
                     <td th:text="${vehiculo.modelo}"></td>
                     <td th:text="${vehiculo.marca}"></td>
                     <td th:text="${vehiculo.color}"></td>
-                    <td><a href="@{/admin/vehiculos/edit/{id}(id=${vehiculo.id})" class="btn btn-sm btn-warning">Editar</a></td>
-                    <td><a href="@{/admin/vehiculos/delete/{id}(id=${vehiculo.id})" class="btn btn-sm btn-danger">Eliminar</a></td>
+                    <td><form method="get" th:action="@{/admin/vehiculos/edit/{user_id}(user_id=${vehiculo.id})}">
+                            <input type="hidden" name="action" th:value="EDIT_VEHICLE">
+                            <input type="hidden" name="id" th:value="${usuario.id}">
+                            <button type="submit" class="btn btn-sm btn-warning" >
+                                Editar
+                            </button>
+                        </form></td>
+                    <td><form method="get" th:action="@{/admin/vehiculos/delete/{user_id}(user_id=${vehiculo.id})}">
+                            <input type="hidden" name="action" th:value="DELETE_VEHICLE">
+                            <input type="hidden" name="id" th:value="${usuario.id}">
+                            <button type="submit" class="btn btn-sm btn-danger" >
+                                Eliminar
+                            </button>
+                        </form></td>
                 </tr>
             </tbody>
         </table>

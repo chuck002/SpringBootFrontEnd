@@ -5,7 +5,6 @@
  */
 package javy.CarTWOSpringBootClient.CarTWOClient.entities;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
