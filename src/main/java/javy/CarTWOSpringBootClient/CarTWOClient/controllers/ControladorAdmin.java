@@ -15,9 +15,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -114,17 +116,17 @@ public class ControladorAdmin {
 
     }
 
-    @GetMapping("usuarios/edit/{id}")
-    public String UpdateUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+    @GetMapping("usuarios/edit/{user_id}")
+    public String UpdateUserView(Model modelo, @PathVariable("user_id") int user_id, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
 
         cargarDatosAdmin();
         Usuario tmp = new Usuario();
         for (Usuario u : this.usuarios) {
-            if (id == u.getId()) {
+            if (user_id == u.getId()) {
                 tmp = u;
             }
         }
- 
+        modelo.addAttribute("id", id);
         modelo.addAttribute("usuario_edit", tmp);
         modelo.addAttribute("action", action);
 
@@ -162,30 +164,47 @@ public class ControladorAdmin {
         return "vista_administrador";
     }
 
-    @GetMapping("usuarios/delete/{id}")
-    public String DeleteUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+    @GetMapping("usuarios/delete/{user_id}")
+    public String DeleteUserView(Model modelo, @PathVariable("user_id") int user_id, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
 
-        /* Usuario usuario_edit = new Usuario();
-        
-        RestTemplate rtEdit = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String url = "http://localhost:9090/usuarios/edit/"+id;
-        Usuario user = rtEdit.getForObject(url , Usuario.class);
-        
-        modelo.addAttribute("usuario_edit", user);
-         */
+        cargarDatosAdmin();
         Usuario tmp = new Usuario();
         for (Usuario u : this.usuarios) {
-            if (id == u.getId()) {
+            if (user_id == u.getId()) {
                 tmp = u;
             }
         }
-        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("id", id);
+        modelo.addAttribute("usuario_delete", tmp);
         modelo.addAttribute("action", action);
 
         return "vista_administrador_crud";
+    }
+
+    @PostMapping("usuarios/delete/{id}")
+    public String DeleteUser(Model modelo, Usuario usuario, @RequestParam(name = "user_id") int user_id) {
+
+        RestTemplate rtDelete = new RestTemplate();
+
+        String url = "http://localhost:9090/usuarios/delete/" + usuario.getId();
+        rtDelete.delete(url);
+
+        cargarDatosAdmin();
+
+        Usuario tmp = new Usuario();
+        for (Usuario us : this.usuarios) {
+            if (user_id == us.getId()) {
+                tmp = us;
+            }
+        }
+
+        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
+        modelo.addAttribute("active", 1);
+
+        return "vista_administrador";
     }
 
     @RequestMapping("/vehiculos/all")

@@ -4,6 +4,7 @@
 
         <div th:fragment="usuarios_add">
             <div class="container">
+                <h1>Agregar Usuario</h1>
                 <form method="post" th:action="@{/admin/usuarios/add}">
       
                     <div class="mb-3">
@@ -55,6 +56,7 @@
 
         <div th:fragment="usuarios_edit">
             <div class="container">
+                <h1>Editar Usuario</h1>
                 <form method="post" th:action="@{/admin/usuarios/edit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
                     <div class="mb-3">
                     <label>User: </label>
@@ -92,7 +94,7 @@
                     <label>Sucursal: </label>
                     <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
                     </div>
-                    <input type="hidden" name="user_id" th:value="${usuario_edit.id}">
+                    <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
 
                     
@@ -107,48 +109,38 @@
         
         <div th:fragment="usuarios_delete">
             <div class="container">
-                <form method="post" th:action="@{/admin/usuarios/delete/{id}(id=${usuario.id})}" th:object="${usuario}">
+                <h1>Eliminar Usuario</h1>
+                <form method="post" th:action="@{/admin/usuarios/delete/{id}(id=${usuario_delete.id})}" th:object="${usuario_delete}">
                     <div class="mb-3">
-                    <label>User: </label>
-                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario.user}"/>
+                    <label>User: <span th:text="${usuario_delete.user}"</span> </label>
                     </div>
                     <div class="mb-3">
-                    <label>Pass: </label>
-                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario.pass}"/>
+                    <label>Pass: <span th:text="${usuario_delete.pass}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Rol: </label>
-                    <select name="rol" th:field="*{rol}" th:value="${usuario.rol}">
-                        <option value="1" selected>Administrador</option>
-                        <option value="2">Vendedor</option>
-                        <option value="3">Cliente</option>
-                    </select>
+                    <label>Rol: <span th:text="${usuario_delete.rol}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Nombre Completo: </label>
-                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario.nombre}"/>
+                    <label>Nombre Completo: <span th:text="${usuario_delete.nombre}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Dni: </label>
-                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario.dni}"/>
+                    <label>Dni: <span th:text="${usuario_delete.dni}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Direccion: </label>
-                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario.direccion}"/>
+                    <label>Direccion: <span th:text="${usuario_delete.direccion}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Telefono: </label>
-                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario.telefono}"/>
+                    <label>Telefono: <span th:text="${usuario_delete.telefono}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Sucursal: </label>
-                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario.sucursal}"/>
+                    <label>Sucursal: <span th:text="${usuario_delete.sucursal}"</span></label>
                     </div>
+                    <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
 
                     
                         <button type="button" class="btn btn-secondary">Cerrar</button>
-                        <button type="button" class="btn btn-primary" th:href="@{/admin/usuarios/delete}">Eliminar Usuario</button>
+                        <button type="submit" class="btn btn-primary">Eliminar Usuario</button>
 
                     </div>
                 </form>

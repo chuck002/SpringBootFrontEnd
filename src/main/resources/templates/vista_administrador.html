@@ -41,25 +41,25 @@ and open the template in the editor.
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="usuario" items="${datos_usuarios}">
-                <tr th:each="usuario : ${datos_usuarios}">
-                    <td th:text="${usuario.id}"></td>
-                    <td th:text="${usuario.user}"></td>
-                    <td th:text="${usuario.pass}"></td>
-                    <td th:text="${usuario.rol}"></td>
-                    <td th:text="${usuario.nombre}"></td>
-                    <td th:text="${usuario.dni}"></td>
-                    <td th:text="${usuario.direccion}"></td>
-                    <td th:text="${usuario.telefono}"></td>
-                    <td th:text="${usuario.sucursal}"></td>
-                    <td><form method="get" th:action="@{/admin/usuarios/edit/{id}(id=${usuario.id})}">
+            <c:forEach var="usuario_edit" items="${datos_usuarios}">
+                <tr th:each="usuario_edit : ${datos_usuarios}">
+                    <td th:text="${usuario_edit.id}"></td>
+                    <td th:text="${usuario_edit.user}"></td>
+                    <td th:text="${usuario_edit.pass}"></td>
+                    <td th:text="${usuario_edit.rol}"></td>
+                    <td th:text="${usuario_edit.nombre}"></td>
+                    <td th:text="${usuario_edit.dni}"></td>
+                    <td th:text="${usuario_edit.direccion}"></td>
+                    <td th:text="${usuario_edit.telefono}"></td>
+                    <td th:text="${usuario_edit.sucursal}"></td>
+                    <td><form method="get" th:action="@{/admin/usuarios/edit/{user_id}(user_id=${usuario_edit.id})}">
                             <input type="hidden" name="action" th:value="EDIT">
                             <input type="hidden" name="id" th:value="${usuario.id}">
                             <button type="submit" class="btn btn-sm btn-warning" >
                                 Editar
                             </button>
                         </form></td>
-                    <td><form method="get" th:action="@{/admin/usuarios/delete/{id}(id=${usuario.id})}">
+                    <td><form method="get" th:action="@{/admin/usuarios/delete/{user_id}(user_id=${usuario_edit.id})}">
                             <input type="hidden" name="action" th:value="DELETE">
                             <input type="hidden" name="id" th:value="${usuario.id}">
                             <button type="submit" class="btn btn-sm btn-danger" >
