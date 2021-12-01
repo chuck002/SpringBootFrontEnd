@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang=”es” xmlns:th="http://www.thymeleaf.org"/>
+<head th:replace="template/main_template::general_head">
+</head>
+<body>
+
+    <div class="container" >
+        <h1>Vehiculos Reservados</h1>
+           
+                        <table class="table table-bordered table-success table-striped table-hover">
+                            <thead>
+                            <th>Id</th>
+                            <th>Precio de Alquiler</th>
+                            <th>Litros en Tanque</th>
+                            <th>Fue Entregado</th>
+                            <th>Patente</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Color</th>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="vehiculo : ${vehiculos}">
+                                    <td th:text="${vehiculo.id}"></td>
+                                    <td th:text="${vehiculo.precio_alquiler}"></td>
+                                    <td th:text="${vehiculo.litros_combustible}"></td>
+                                    <td th:if="${vehiculo.entregado == 0}">
+                                        No
+                                    </td>
+                                    <td th:if="${vehiculo.entregado == 1}">
+                                        Si
+                                    </td>
+                                    <td th:text="${vehiculo.patente}"></td>
+                                    <td th:text="${vehiculo.modelo}"></td>
+                                    <td th:text="${vehiculo.marca}"></td>
+                                    <td th:text="${vehiculo.color}"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mb-4">
+                        <a class="btn btn-secondary" th:href="@{/cliente/volver(id=${id})}">Cerrar</a>
+
+                    </div>
+                </form>
+                <br>
+    </div>
+
+    <footer th:replace="template/main_template::general_footer"></footer>
+
+</body>
+</html>
+

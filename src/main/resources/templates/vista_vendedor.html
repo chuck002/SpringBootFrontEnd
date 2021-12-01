@@ -23,7 +23,7 @@ and open the template in the editor.
         <table class="table table-bordered table-success table-striped table-hover">
             <thead>
                 <tr>
-                    <td>Id Usuario</td>
+                    <td>Id</td>
                     <td>User</td>
                     <td>Pass</td>
                     <td>Nombre</td>
@@ -31,8 +31,8 @@ and open the template in the editor.
                     <td>Direccion</td>
                     <td>Telefono</td>
                     <td>Sucursal</td>
-                    <td>Editar Usuario</td>
-                    <td>Eliminar Usuario</td>
+                    <td>Editar</td>
+                    <td>Eliminar</td>
                 </tr>
             </thead>
             <tbody>
@@ -77,18 +77,18 @@ and open the template in the editor.
                             </button>
                         </form>
                         <br>
-                        <table class="table table-bordered table-success table-striped table-hover center">
+                        <table class="table table-bordered table-success table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <td>Id Reserva</td>
-                                    <td>Fecha de Inicio</td>
-                                    <td>Fecha de Cierre</td>
-                                    <td>Precio Total</td>
-                                    <td>ID Oficina</td>
-                                    <td>ID Cliente</td>
-                                    <td>Items en Reserva</td>
-                                    <td>Editar Reserva</td>
-                                    <td>Eliminar Reserva</td>
+                                    <th>Id</th>
+                                    <th>Fecha de Inicio</th>
+                                    <th>Fecha de Cierre</th>
+                                    <th>Precio Total</th>
+                                    <th>ID Oficina</th>
+                                    <th>ID Cliente</th>
+                                    <th>Items</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,8 +100,13 @@ and open the template in the editor.
                                     <td th:text="${reserva.id_oficina}"></td>
                                     <td th:text="${reserva.id_cliente}"></td>
                                     <td>
-
-                                        <button class="btn btn-secondary" th:href="@{/vendedor/vehiculos/reservados}">Ver</a>
+                                        <form method="get" th:action="@{/vendedor/reservas/{reserva_id}(reserva_id=${reserva.id})}">
+                                            <input type="hidden" name="action" th:value="SHOW_RESERVA">
+                                            <input type="hidden" name="id" th:value="${usuario.id}">
+                                            <button type="submit" class="btn btn-secondary" >
+                                                Ver
+                                            </button>
+                                        </form>
                                     </td>
                                     <td><form method="get" th:action="@{/vendedor/reservas/edit/{reserva_id}(reserva_id=${reserva.id})}">
                                             <input type="hidden" name="action" th:value="EDIT_RESERVA">
@@ -129,6 +134,6 @@ and open the template in the editor.
                     <div th:replace="template/main_template::general_scripts"></div>
                     <footer th:replace="template/main_template::general_footer"></footer>
 
-                    
+
                     </body>
                     </html>

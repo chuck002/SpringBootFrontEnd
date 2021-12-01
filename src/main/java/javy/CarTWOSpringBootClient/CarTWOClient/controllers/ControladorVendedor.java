@@ -320,10 +320,10 @@ public class ControladorVendedor {
             @RequestParam(name = "id_cliente") int id_cliente,
             @RequestParam(name = "vehiculos_reservados") String vehiculos_re,
             @RequestParam(name = "id_oficina") int id_oficina,
-            @RequestParam(name= "precio_total") double precio_total,
+            @RequestParam(name = "precio_total") double precio_total,
             @RequestParam(name = "id") int id,
-            @RequestParam(name = "user_id") int user_id){
-        
+            @RequestParam(name = "user_id") int user_id) {
+
         cargarDatosVenta();
 
         String[] vehiculos_tmp = vehiculos_re.split(",");
@@ -342,7 +342,7 @@ public class ControladorVendedor {
         reserva.setId_oficina(id_oficina);
         reserva.setVehiculos_reservados(vehiculos_reservados);
         reserva.setPrecio_total(precio_total);
-        
+
         RestTemplate rtEdit = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -411,6 +411,62 @@ public class ControladorVendedor {
         modelo.addAttribute("datos_vehiculos", this.vehiculos);
         modelo.addAttribute("datos_usuarios", this.usuarios);
         modelo.addAttribute("active", 0);
+
+        return "vista_vendedor";
+    }
+
+    @GetMapping("reservas/{reserva_id}")
+    public String ShowReservaView(Model modelo, @PathVariable("reserva_id") int reserva_id, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+
+        cargarDatosVenta();
+        Reserva tmp = new Reserva();
+        for (Reserva u : this.reservas) {
+            if (reserva_id == u.getId()) {
+                tmp = u;
+            }
+        }
+
+        Usuario tmpUser = new Usuario();
+        for (Usuario us : this.usuarios) {
+            if (id == us.getId()) {
+                tmpUser = us;
+            }
+        }
+        modelo.addAttribute("id", id);
+        modelo.addAttribute("vehiculos", tmp.getVehiculos_reservados());
+        modelo.addAttribute("usuario", tmpUser);
+        modelo.addAttribute("action", action);
+
+        return "vista_vendedor_crud";
+    }
+
+    @GetMapping("volver")
+    public String VolverReservaCliente(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+
+        String vista = "";
+
+        cargarDatosVenta();
+
+        Usuario tmpUser = new Usuario();
+        for (Usuario us : this.usuarios) {
+            if (id == us.getId()) {
+                tmpUser = us;
+            }
+        }
+
+        switch (action) {
+            case "RESERVAS":
+
+                modelo.addAttribute("active", 0);
+                break;
+            case "CLIENTES":
+                modelo.addAttribute("active", 1);
+                break;
+        }
+        modelo.addAttribute("usuario", tmpUser);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
 
         return "vista_vendedor";
     }

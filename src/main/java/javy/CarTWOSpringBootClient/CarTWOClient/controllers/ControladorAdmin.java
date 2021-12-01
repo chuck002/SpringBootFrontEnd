@@ -371,7 +371,37 @@ public class ControladorAdmin {
 
         return "vista_administrador";
     }
-    
+
+    @GetMapping("volver")
+    public String VolverReservaCliente(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
+
+        String vista = "";
+
+        cargarDatosAdmin();
+
+        Usuario tmpUser = new Usuario();
+        for (Usuario us : this.usuarios) {
+            if (id == us.getId()) {
+                tmpUser = us;
+            }
+        }
+
+        switch (action) {
+            case "USUARIOS":
+
+                modelo.addAttribute("active", 1);
+                break;
+            case "VEHICULOS":
+                modelo.addAttribute("active", 0);
+                break;
+        }
+        modelo.addAttribute("usuario", tmpUser);
+        modelo.addAttribute("datos_reservas", this.reservas);
+        modelo.addAttribute("datos_vehiculos", this.vehiculos);
+        modelo.addAttribute("datos_usuarios", this.usuarios);
+
+        return "vista_administrador";
+    }
     
 
     private void cargarDatosAdmin() {

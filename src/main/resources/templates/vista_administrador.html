@@ -24,10 +24,10 @@ and open the template in the editor.
             </form>
             <br>
         </div>
-        <table class="table table-bordered table-success table-striped table-hover" >
+        <table class="table table-bordered table-success table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Id Usuario</th>
+                    <th>Id</th>
                     <th>User</th>
                     <th>Pass</th>
                     <th>Rol</th>
@@ -36,8 +36,8 @@ and open the template in the editor.
                     <th>Direccion</th>
                     <th>Telefono</th>
                     <th>Sucursal</th>
-                    <th>Editar Usuario</th>
-                    <th>Eliminar Usuario</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@ and open the template in the editor.
         <table class="table table-bordered table-success table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Id Vehiculo</th>
+                    <th>Id</th>
                     <th>Precio de Alquiler</th>
                     <th>Litros en Tanque</th>
                     <th>Fue Entregado</th>
@@ -95,8 +95,8 @@ and open the template in the editor.
                     <th>Modelo</th>
                     <th>Marca</th>
                     <th>Color</th>
-                    <th>Editar Vehiculo</th>
-                    <th>Eliminar Vehiculo</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -133,25 +133,6 @@ and open the template in the editor.
     <br>
 
     <div th:replace="template/main_template::general_scripts"></div>
-
-    <!-- Modales Usuarios -->
-
-    <!-- Modal Agregar-->
-    <div class="modal fade" id="AddUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Agregar Nuevo Usuario</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div th:replace="template/admin_forms_template::usuarios_add"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <footer th:replace="template/main_template::general_footer"></footer>
 
 </body>

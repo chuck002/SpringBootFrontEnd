@@ -29,6 +29,9 @@ and open the template in the editor.
         <div th:case="DELETE_RESERVA">
             <div th:replace="template/vendedor_forms_template::reserva_delete"></div>
         </div>
+        <div th:case="SHOW_RESERVA">
+            <div th:replace="template/vendedor_forms_template::reserva_show"></div>
+        </div>
         
         
     </div>

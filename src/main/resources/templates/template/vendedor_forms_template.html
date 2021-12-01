@@ -45,7 +45,7 @@
                     </div>
                     <input type="hidden" name="id" th:value="${usuario.id}">
                     <div class="mb-4">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${usuario.id}, action=CLIENTES)}" >Cerrar</a>
                         <input type="submit" class="btn btn-primary" value="Agregar Cliente">
 
                     </div>
@@ -94,7 +94,7 @@
                     <div class="mb-4">
 
 
-                        <button type="button" href="" class="btn btn-secondary">Volver Atras</button>
+                       <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=CLIENTES)}" >Cerrar</a>
                         <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
 
                     </div>
@@ -135,7 +135,7 @@
                     <div class="mb-4">
 
 
-                        <button type="button" class="btn btn-secondary">Cerrar</button>
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=CLIENTES)}" >Cerrar</a>
                         <button type="submit" class="btn btn-primary">Eliminar Cliente</button>
 
                     </div>
@@ -169,15 +169,15 @@
                     <label><h3>Vehiculos Disponibles</h3></label>
                     <table class="table table-bordered table-success table-striped table-hover">
                         <thead>
-                        <td>Agregar Vehiculo</td>
-                        <td>Id Vehiculo</td>
-                        <td>Precio de Alquiler</td>
-                        <td>Litros en Tanque</td>
-                        <td>Fue Entregado</td>
-                        <td>Patente</td>
-                        <td>Modelo</td>
-                        <td>Marca</td>
-                        <td>Color</td>
+                        <th>Agregar Vehiculo</th>
+                        <th>Id Vehiculo</th>
+                        <th>Precio de Alquiler</th>
+                        <th>Litros en Tanque</th>
+                        <th>Fue Entregado</th>
+                        <th>Patente</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Color</th>
                         </thead>
                         <tbody>
 
@@ -210,7 +210,7 @@
 
                     
                     <div class="mb-4">
-                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=RESERVAS)}">Cerrar</a>
                         <input type="submit" class="btn btn-primary" value="Agregar Reserva">
 
                     </div>
@@ -241,15 +241,15 @@
                     <label>Seleccionar Vehiculos: </label>
                     <table class="table table-bordered table-success table-striped table-hover">
                         <thead>
-                        <td>Vehiculo</td>
-                        <td>Id Vehiculo</td>
-                        <td>Precio de Alquiler</td>
-                        <td>Litros en Tanque</td>
-                        <td>Fue Entregado</td>
-                        <td>Patente</td>
-                        <td>Modelo</td>
-                        <td>Marca</td>
-                        <td>Color</td>
+                        <th>Vehiculo</th>
+                        <th>Id Vehiculo</th>
+                        <th>Precio de Alquiler</th>
+                        <th>Litros en Tanque</th>
+                        <th>Fue Entregado</th>
+                        <th>Patente</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Color</th>
                         </thead>
                         <tbody>
 
@@ -286,7 +286,7 @@
 
                     
                     <div class="mb-4">
-                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=RESERVAS)}">Cerrar</a>
                         <input type="submit" class="btn btn-primary" value="Modificar Reserva">
 
                     </div>
@@ -312,16 +312,16 @@
                     </div>
                     <div class="mb-3">
                         <label>Vehiculos Seleccionados</label>
-                        <table class="centrada">
+                       <table class="table table-bordered table-success table-striped table-hover">
                             <thead>
-                            <td>Id Vehiculo</td>
-                            <td>Precio de Alquiler</td>
-                            <td>Litros en Tanque</td>
-                            <td>Fue Entregado</td>
-                            <td>Patente</td>
-                            <td>Modelo</td>
-                            <td>Marca</td>
-                            <td>Color</td>
+                            <th>Id Vehiculo</th>
+                            <th>Precio de Alquiler</th>
+                            <th>Litros en Tanque</th>
+                            <th>Fue Entregado</th>
+                            <th>Patente</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Color</th>
                             </thead>
                             <tbody>
 
@@ -354,8 +354,56 @@
 
                     <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
-                        <button type="button" class="btn btn-secondary" >Cerrar</button>
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=RESERVAS)}">Cerrar</a>
                         <input type="submit" class="btn btn-primary" value="Eliminar Reserva">
+
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
+        
+        
+        <div th:fragment="reserva_show">
+            <div class="container">
+                <h1>Vehiculos Reservados</h1>
+           
+                        <table class="table table-bordered table-success table-striped table-hover">
+                            <thead>
+                            <th>Id Vehiculo</th>
+                            <th>Precio de Alquiler</th>
+                            <th>Litros en Tanque</th>
+                            <th>Fue Entregado</th>
+                            <th>Patente</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Color</th>
+                            </thead>
+                            <tbody>
+
+                                <tr th:each="vehiculo : ${vehiculos}">
+                                    <td th:text="${vehiculo.id}"></td>
+                                    <td th:text="${vehiculo.precio_alquiler}"></td>
+                                    <td th:text="${vehiculo.litros_combustible}"></td>
+                                    <td th:if="${vehiculo.entregado == 0}">
+                                        No
+                                    </td>
+                                    <td th:if="${vehiculo.entregado == 1}">
+                                        Si
+                                    </td>
+                                    <td th:text="${vehiculo.patente}"></td>
+                                    <td th:text="${vehiculo.modelo}"></td>
+                                    <td th:text="${vehiculo.marca}"></td>
+                                    <td th:text="${vehiculo.color}"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input type="hidden" name="user_id" th:value="${id}">
+                    <div class="mb-4">
+                        <a class="btn btn-secondary" th:href="@{/vendedor/volver(id=${id}, action=RESERVAS)}">Cerrar</a>
 
                     </div>
                 </form>
