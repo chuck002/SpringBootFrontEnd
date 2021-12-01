@@ -259,7 +259,7 @@ public class ControladorAdmin {
         headers.setContentType(MediaType.APPLICATION_JSON);
         
         HttpEntity<Vehiculo> request;
-        request = new HttpEntity<>(new Vehiculo(null, litros_combustible,precio_alquiler,entregado,patente,modelo,marca,color), headers);
+        request = new HttpEntity<>(new Vehiculo(null, precio_alquiler, litros_combustible, entregado,patente,modelo,marca,color), headers);
 
         ResponseEntity<Vehiculo> v = rtAdd.postForEntity("http://localhost:9090/vehiculos/add", request, Vehiculo.class);
 

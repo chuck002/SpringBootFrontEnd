@@ -4,44 +4,46 @@
 
         <div th:fragment="usuarios_add">
             <div class="container">
+                <br>
                 <h1>Agregar Usuario</h1>
+                <br>
                 <form method="post" th:action="@{/admin/usuarios/add}">
-      
+
                     <div class="mb-3">
-                    <label>User: </label>
-                    <input type="text" name="user" required="true"/>
+                        <label>User: </label>
+                        <input type="text" name="user" required="true"/>
                     </div>
                     <div class="mb-3">
-                    <label>Pass: </label>
-                    <input type="text" name="pass" required="true"/>
+                        <label>Pass: </label>
+                        <input type="text" name="pass" required="true"/>
                     </div>
                     <div class="mb-3">
-                    <label>Rol: </label>
-                    <select name="rol">
-                        <option value="1" selected>Administrador</option>
-                        <option value="2">Vendedor</option>
-                        <option value="3">Cliente</option>
-                    </select>
+                        <label>Rol: </label>
+                        <select name="rol">
+                            <option value="1" selected>Administrador</option>
+                            <option value="2">Vendedor</option>
+                            <option value="3">Cliente</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                    <label>Nombre Completo: </label>
-                    <input type="text" name="nombre" required="true" />
+                        <label>Nombre Completo: </label>
+                        <input type="text" name="nombre" required="true" />
                     </div>
                     <div class="mb-3">
-                    <label>Dni: </label>
-                    <input type="text" name="dni"/>
+                        <label>Dni: </label>
+                        <input type="text" name="dni"/>
                     </div>
                     <div class="mb-3">
-                    <label>Direccion: </label>
-                    <input type="text"  name="direccion"/>
+                        <label>Direccion: </label>
+                        <input type="text"  name="direccion"/>
                     </div>
                     <div class="mb-3">
-                    <label>Telefono: </label>
-                    <input type="text" name="telefono"/>
+                        <label>Telefono: </label>
+                        <input type="text" name="telefono"/>
                     </div>
                     <div class="mb-3">
-                    <label>Sucursal: </label>
-                    <input type="number" name="sucursal"/>
+                        <label>Sucursal: </label>
+                        <input type="number" name="sucursal"/>
                     </div>
                     <input type="hidden" name="id" th:value="${usuario.id}">
                     <div class="mb-4">
@@ -56,48 +58,50 @@
 
         <div th:fragment="usuarios_edit">
             <div class="container">
+                <br>
                 <h1>Editar Usuario</h1>
+                <br>
                 <form method="post" th:action="@{/admin/usuarios/edit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
                     <div class="mb-3">
-                    <label>User: </label>
-                    <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario_edit.user}"/>
+                        <label>User: </label>
+                        <input type="text" name="user" required="true" th:field="*{user}" th:value="${usuario_edit.user}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Pass: </label>
-                    <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario_edit.pass}"/>
+                        <label>Pass: </label>
+                        <input type="text" name="pass" required="true" th:field="*{pass}" th:value="${usuario_edit.pass}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Rol: </label>
-                    <select name="rol" th:field="*{rol}" th:value="${usuario_edit.rol}">
-                        <option value="1" selected>Administrador</option>
-                        <option value="2">Vendedor</option>
-                        <option value="3">Cliente</option>
-                    </select>
+                        <label>Rol: </label>
+                        <select name="rol" th:field="*{rol}" th:value="${usuario_edit.rol}">
+                            <option value="1" selected>Administrador</option>
+                            <option value="2">Vendedor</option>
+                            <option value="3">Cliente</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                    <label>Nombre Completo: </label>
-                    <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario_edit.nombre}"/>
+                        <label>Nombre Completo: </label>
+                        <input type="text" name="nombre" required="true" th:field="*{nombre}" th:value="${usuario_edit.nombre}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Dni: </label>
-                    <input type="text" name="dni" th:field="*{dni}" th:value="${usuario_edit.dni}"/>
+                        <label>Dni: </label>
+                        <input type="text" name="dni" th:field="*{dni}" th:value="${usuario_edit.dni}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Direccion: </label>
-                    <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario_edit.direccion}"/>
+                        <label>Direccion: </label>
+                        <input type="text"  name="direccion" th:field="*{direccion}" th:value="${usuario_edit.direccion}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Telefono: </label>
-                    <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario_edit.telefono}"/>
+                        <label>Telefono: </label>
+                        <input type="text" name="telefono" th:field="*{telefono}" th:value="${usuario_edit.telefono}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Sucursal: </label>
-                    <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
+                        <label>Sucursal: </label>
+                        <input type="number" name="sucursal" th:field="*{sucursal}" th:value="${usuario_edit.sucursal}"/>
                     </div>
                     <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
 
-                    
+
                         <a class="btn btn-secondary" th:href="@{/admin/volver(id=${id}, action=USUARIOS)}">Cerrar</a>
                         <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
 
@@ -106,39 +110,41 @@
                 <br>
             </div>
         </div>
-        
+
         <div th:fragment="usuarios_delete">
             <div class="container">
+                <br>
                 <h1>Eliminar Usuario</h1>
+                <br>
                 <form method="post" th:action="@{/admin/usuarios/delete/{id}(id=${usuario_delete.id})}" th:object="${usuario_delete}">
                     <div class="mb-3">
-                    <label>User: <span th:text="${usuario_delete.user}"</span> </label>
+                        <label>User: <span th:text="${usuario_delete.user}"</span> </label>
                     </div>
                     <div class="mb-3">
-                    <label>Pass: <span th:text="${usuario_delete.pass}"</span></label>
+                        <label>Pass: <span th:text="${usuario_delete.pass}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Rol: <span th:text="${usuario_delete.rol}"</span></label>
+                        <label>Rol: <span th:text="${usuario_delete.rol}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Nombre Completo: <span th:text="${usuario_delete.nombre}"</span></label>
+                        <label>Nombre Completo: <span th:text="${usuario_delete.nombre}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Dni: <span th:text="${usuario_delete.dni}"</span></label>
+                        <label>Dni: <span th:text="${usuario_delete.dni}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Direccion: <span th:text="${usuario_delete.direccion}"</span></label>
+                        <label>Direccion: <span th:text="${usuario_delete.direccion}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Telefono: <span th:text="${usuario_delete.telefono}"</span></label>
+                        <label>Telefono: <span th:text="${usuario_delete.telefono}"</span></label>
                     </div>
                     <div class="mb-3">
-                    <label>Sucursal: <span th:text="${usuario_delete.sucursal}"</span></label>
+                        <label>Sucursal: <span th:text="${usuario_delete.sucursal}"</span></label>
                     </div>
                     <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
 
-                    
+
                         <a class="btn btn-secondary" th:href="@{/admin/volver(id=${id}, action=USUARIOS)}">Cerrar</a>
                         <button type="submit" class="btn btn-primary">Eliminar Usuario</button>
 
@@ -152,38 +158,40 @@
 
         <div th:fragment="vehiculos_add">
             <div class="container">
+                <br>
                 <h1>Agregar Vehiculo</h1>
+                <br>
                 <form method="post" th:action="@{/admin/vehiculos/add}">
-      
+
                     <div class="mb-3">
-                    <label>Marca: </label>
-                    <input type="text" name="marca" required="true">
+                        <label>Marca: </label>
+                        <input type="text" name="marca" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Modelo: </label>
-                    <input type="text" name="modelo" required="true">
+                        <label>Modelo: </label>
+                        <input type="text" name="modelo" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Patente: </label>
-                    <input type="text" name="patente" required="true">
+                        <label>Patente: </label>
+                        <input type="text" name="patente" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Color: </label>
-                    <input type="text" name="color" required="true">
+                        <label>Color: </label>
+                        <input type="text" name="color" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Precio Alquiler: </label>
-                    <input type="text" name="precio_alquiler" required="true">
+                        <label>Precio Alquiler: </label>
+                        <input type="text" name="precio_alquiler" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Litros en Tanque: </label>
-                    <input type="text" name="litros_combustible" required="true">
+                        <label>Litros en Tanque: </label>
+                        <input type="text" name="litros_combustible" required="true">
                     </div>
                     <div class="mb-3">
-                    <label>Entregado: </label>
-                    <input type="text" name="entregado" required="true">
+                        <label>Entregado: </label>
+                        <input type="text" name="entregado" required="true">
                     </div>
-                    
+
                     <input type="hidden" name="id" th:value="${usuario.id}">
                     <div class="mb-4">
                         <a class="btn btn-secondary" th:href="@{/admin/volver(id=${usuario.id}, action=VEHICULOS)}">Cerrar</a>
@@ -197,40 +205,42 @@
 
         <div th:fragment="vehiculos_edit">
             <div class="container">
+                <br>
                 <h1>Editar Vehiculo</h1>
+                <br>
                 <form method="post" th:action="@{/admin/vehiculos/edit/{id}(id=${vehiculo.id})}" th:object="${vehiculo}">
-                     <div class="mb-3">
-                    <label>Marca: </label>
-                    <input type="text" name="marca" required="true" th:field="*{marca}" th:value="${vehiculo.marca}"/>
+                    <div class="mb-3">
+                        <label>Marca: </label>
+                        <input type="text" name="marca" required="true" th:field="*{marca}" th:value="${vehiculo.marca}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Modelo: </label>
-                    <input type="text" name="modelo" required="true" th:field="*{modelo}" th:value="${vehiculo.modelo}"/>
+                        <label>Modelo: </label>
+                        <input type="text" name="modelo" required="true" th:field="*{modelo}" th:value="${vehiculo.modelo}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Patente: </label>
-                    <input type="text" name="patente" required="true" th:field="*{patente}" th:value="${vehiculo.patente}"/>
+                        <label>Patente: </label>
+                        <input type="text" name="patente" required="true" th:field="*{patente}" th:value="${vehiculo.patente}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Color: </label>
-                    <input type="text" name="color" required="true" th:field="*{color}" th:value="${vehiculo.color}"/>
+                        <label>Color: </label>
+                        <input type="text" name="color" required="true" th:field="*{color}" th:value="${vehiculo.color}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Precio Alquiler: </label>
-                    <input type="text" name="precio_alquiler" required="true" th:field="*{precio_alquiler}" th:value="${vehiculo.precio_alquiler}"/>
+                        <label>Precio Alquiler: </label>
+                        <input type="text" name="precio_alquiler" required="true" th:field="*{precio_alquiler}" th:value="${vehiculo.precio_alquiler}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Litros en Tanque: </label>
-                    <input type="text" name="litros_combustible" required="true" th:field="*{litros_combustible}" th:value="${vehiculo.litros_combustible}"/>
+                        <label>Litros en Tanque: </label>
+                        <input type="text" name="litros_combustible" required="true" th:field="*{litros_combustible}" th:value="${vehiculo.litros_combustible}"/>
                     </div>
                     <div class="mb-3">
-                    <label>Entregado: </label>
-                    <input type="text" name="entregado" required="true" th:field="*{entregado}" th:value="${vehiculo.entregado}"/>
+                        <label>Entregado: </label>
+                        <input type="text" name="entregado" required="true" th:field="*{entregado}" th:value="${vehiculo.entregado}"/>
                     </div>
                     <input type="hidden" name="user_id" th:value="${id}">
                     <div class="mb-4">
 
-                    
+
                         <a class="btn btn-secondary" th:href="@{/admin/volver(id=${id}, action=VEHICULOS)}">Cerrar</a>
                         <button type="submit" class="btn btn-primary">Actualizar Vehiculo</button>
 
@@ -239,52 +249,53 @@
                 <br>
             </div>
         </div>
-        
+
         <div th:fragment="vehiculos_delete">
             <div class="container">
+                <br>
                 <h1>Eliminar Vehiculo</h1>
+                <br>
                 <form method="post" th:action="@{/admin/vehiculos/delete/{id}(id=${vehiculo_delete.id})}" th:object="${vehiculo_delete}">
-                    <div class="mb-3">
-                     <div class="mb-3">
-                    <label>Marca: <span th:text="${vehiculo_delete.marca}"</span></label>
+                        <div class="mb-3">
+                            <label>Marca: <span th:text="${vehiculo_delete.marca}"</span></label>
 
-                    </div>
-                    <div class="mb-3">
-                    <label>Modelo: <span th:text="${vehiculo_delete.modelo}"</span></label>
-        
-                    </div>
-                    <div class="mb-3">
-                    <label>Patente: <span th:text="${vehiculo_delete.patente}"</span></label>
-             
-                    </div>
-                    <div class="mb-3">
-                    <label>Color: <span th:text="${vehiculo_delete.color}"</span></label>
-          
-                    </div>
-                    <div class="mb-3">
-                    <label>Precio Alquiler: <span th:text="${vehiculo_delete.precio_alquiler}"</span></label>
-           
-                    </div>
-                    <div class="mb-3">
-                    <label>Litros en Tanque: <span th:text="${vehiculo_delete.litros_combustible}"</span></label>
-         
-                    </div>
-                    <div class="mb-3">
-                    <label>Entregado: <span th:text="${vehiculo_delete.entregado}"</span></label>
-                   
-                    </div>
-                    <input type="hidden" name="user_id" th:value="${id}">
-                    <div class="mb-4">
+                        </div>
+                        <div class="mb-3">
+                            <label>Modelo: <span th:text="${vehiculo_delete.modelo}"</span></label>
 
-                    
-                        <a class="btn btn-secondary" th:href="@{/admin/volver(id=${id}, action=VEHICULOS)}">Cerrar</a>
-                        <button type="submit" class="btn btn-primary">Eliminar Vehiculo</button>
+                        </div>
+                        <div class="mb-3">
+                            <label>Patente: <span th:text="${vehiculo_delete.patente}"</span></label>
 
-                    </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Color: <span th:text="${vehiculo_delete.color}"</span></label>
+
+                        </div>
+                        <div class="mb-3">
+                            <label>Precio Alquiler: <span th:text="${vehiculo_delete.precio_alquiler}"</span></label>
+
+                        </div>
+                        <div class="mb-3">
+                            <label>Litros en Tanque: <span th:text="${vehiculo_delete.litros_combustible}"</span></label>
+
+                        </div>
+                        <div class="mb-3">
+                            <label>Entregado: <span th:text="${vehiculo_delete.entregado}"</span></label>
+
+                        </div>
+                        <input type="hidden" name="user_id" th:value="${id}">
+                        <div class="mb-4">
+
+
+                            <a class="btn btn-secondary" th:href="@{/admin/volver(id=${id}, action=VEHICULOS)}">Cerrar</a>
+                            <button type="submit" class="btn btn-primary">Eliminar Vehiculo</button>
+
+                        </div>
                 </form>
                 <br>
             </div>
         </div>
 
-    </body>
+</body>
 </html>

@@ -6,6 +6,7 @@
 package javy.CarTWOSpringBootClient.CarTWOClient.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -254,6 +255,8 @@ public class ControladorVendedor {
             @RequestParam(name = "id") int id
     ) {
         cargarDatosVenta();
+        String Vista = "vista_vendedor";
+        
         String[] vehiculos = vehiculos_acordados.split(",");
         List<String> lista_vehiculos = Arrays.asList(vehiculos);
         List<Vehiculo> vehiculos_reservados = new ArrayList<Vehiculo>();
@@ -266,7 +269,14 @@ public class ControladorVendedor {
                 }
             }
         }
+        
+        if(fecha_inicio.compareTo(fecha_final) > 0){
+            Modelo.addAttribute("error01", "La fecha de finalizacion no puede ser anterior a la de  fecha de inicio.");
+            Modelo.addAttribute("id", id);
 
+            Vista = "vista_error01";               
+        }else{
+        
         RestTemplate rtAdd = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -278,6 +288,7 @@ public class ControladorVendedor {
         Reserva r = rtAdd.postForObject("http://localhost:9090/reservas/add", request, Reserva.class);
 
         cargarDatosVenta();
+        
         Usuario tmp = new Usuario();
         for (Usuario us : this.usuarios) {
             if (id == us.getId()) {
@@ -292,7 +303,9 @@ public class ControladorVendedor {
         Modelo.addAttribute("active", 0);
 
         return "vista_vendedor";
-
+        }
+        
+        return Vista;
     }
 
     @GetMapping("reservas/edit/{reserva_id}")

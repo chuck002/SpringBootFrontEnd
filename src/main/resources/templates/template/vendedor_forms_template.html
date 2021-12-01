@@ -4,7 +4,9 @@
 
         <div th:fragment="cliente_add">
             <div class="container">
+                <br>
                 <h1>Agregar Cliente</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/clientes/add}">
 
                     <div class="mb-3">
@@ -56,7 +58,9 @@
 
         <div th:fragment="cliente_edit">
             <div class="container">
+                <br>
                 <h1>Editar Cliente</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/clientes/edit/{id}(id=${usuario_edit.id})}" th:object="${usuario_edit}">
                     <div class="mb-3">
                         <label>User: </label>
@@ -105,7 +109,9 @@
 
         <div th:fragment="cliente_delete">
             <div class="container">
+                <br>
                 <h1>Eliminar Cliente</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/clientes/delete/{id}(id=${usuario_delete.id})}" th:object="${usuario_delete}">
                     <div class="mb-3">
                         <label>User: <span th:text="${usuario_delete.user}"</span> </label>
@@ -148,7 +154,9 @@
 
         <div th:fragment="reserva_add">
             <div class="container">
+                <br>
                 <h1>Agregar Reserva</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/reservas/add}">
 
                     <div class="mb-3">
@@ -221,15 +229,17 @@
 
         <div th:fragment="reserva_edit">
             <div class="container">
+                <br>
                 <h1>Editar Reserva</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/reservas/edit/{id}(id=${reserva_edit.id})}" th:object="${reserva_edit}">
                     <div class="mb-3">
                         <label>Fecha de Inicio: </label>
-                        <input type="date" name="fecha_inicio" required="true" th:field="*{fecha_inicio}" th:value="${reserva_edit.fecha_inicio}">
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" required="true" th:field="*{fecha_inicio}" th:value="${reserva_edit.fecha_inicio}">
                     </div>
                     <div class="mb-3">
                         <label>Fecha de Finalizacion: </label>
-                        <input type="date" name="fecha_final" required="true" th:field="*{fecha_final}" th:value="${reserva_edit.fecha_final}">
+                        <input type="date" name="fecha_final" required="true" th:field="*{fecha_final}" th:value="${reserva_edit.fecha_final}" max="2022-12-01">
                     </div>
 
                     <label>Id Cliente: </label>
@@ -297,7 +307,9 @@
 
         <div th:fragment="reserva_delete">
             <div class="container">
+                <br>
                 <h1>Eliminar Reserva</h1>
+                <br>
                 <form method="post" th:action="@{/vendedor/reservas/delete/{id}(id=${reserva_delete.id})}" th:object="${reserva_delete}">
                     <div class="mb-3">
                         <label>Fecha de Inicio: <span th:text="${reserva_delete.fecha_inicio}"></span></label>
@@ -366,8 +378,9 @@
         
         <div th:fragment="reserva_show">
             <div class="container">
+                <br>
                 <h1>Vehiculos Reservados</h1>
-           
+                <br>
                         <table class="table table-bordered table-success table-striped table-hover">
                             <thead>
                             <th>Id Vehiculo</th>

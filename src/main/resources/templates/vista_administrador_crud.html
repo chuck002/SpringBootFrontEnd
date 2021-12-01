@@ -9,8 +9,8 @@ and open the template in the editor.
 </head>
 <body>
 
-    <br>
     <div class="container" th:switch="${action}">
+        
         <div th:case="ADD_USER" class="container">
             <div th:replace="template/admin_forms_template::usuarios_add"></div>
         </div>
@@ -29,8 +29,6 @@ and open the template in the editor.
         <div th:case="DELETE_VEHICLE">
             <div th:replace="template/admin_forms_template::vehiculos_delete"></div>
         </div>
-        
-        
     </div>
 
     <footer th:replace="template/main_template::general_footer"></footer>
