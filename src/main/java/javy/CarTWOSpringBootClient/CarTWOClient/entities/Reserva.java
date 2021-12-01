@@ -5,7 +5,6 @@
  */
 package javy.CarTWOSpringBootClient.CarTWOClient.entities;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -27,7 +26,6 @@ public class Reserva {
     private Double precio_total;
     private Integer id_oficina;
     private Integer id_cliente;
-    private List<Vehiculo> vehiculos_entregados;
     private List<Vehiculo> vehiculos_reservados;
 
 }

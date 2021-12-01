@@ -5,6 +5,8 @@
  */
 package javy.CarTWOSpringBootClient.CarTWOClient.controllers;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javy.CarTWOSpringBootClient.CarTWOClient.entities.Reserva;
@@ -30,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 @RequestMapping("vendedor")
 public class ControladorVendedor {
-    
+
     RestTemplate rt = new RestTemplate();
     //Recibimos como un array y casteamos luego a List
     Usuario[] usuariosArray;
@@ -45,13 +47,12 @@ public class ControladorVendedor {
     List<Reserva> reservas;
 
     //Metodos para Clientes 
-    
     @RequestMapping("/clientes/all")
     public String getAllClient(Model modelo, @RequestParam(name = "id") int id) {
         cargarDatosVenta();
         Usuario tmp = new Usuario();
-        for(Usuario u: usuarios){
-            if(id == u.getId()){
+        for (Usuario u : usuarios) {
+            if (id == u.getId()) {
                 tmp = u;
             }
         }
@@ -62,8 +63,8 @@ public class ControladorVendedor {
 
         return "vista_vendedor";
     }
-    
-     @GetMapping("/clientes/add")
+
+    @GetMapping("/clientes/add")
     public String AddUserView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
         Usuario tmp = new Usuario();
         cargarDatosVenta();
@@ -89,9 +90,7 @@ public class ControladorVendedor {
             @RequestParam(name = "sucursal") int sucursal,
             @RequestParam(name = "id") int id
     ) {
-        
-        
-        
+
         RestTemplate rtAdd = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -107,7 +106,7 @@ public class ControladorVendedor {
                 tmp = us;
             }
         }
-        
+
         modelo.addAttribute("usuario", tmp);
         modelo.addAttribute("datos_reservas", this.reservas);
         modelo.addAttribute("datos_vehiculos", this.vehiculos);
@@ -208,16 +207,15 @@ public class ControladorVendedor {
 
         return "vista_vendedor";
     }
-    
+
     //Metodos para Reservas
-    
     @RequestMapping("/reservas/all")
     public String getAllReservation(Model modelo, @RequestParam(name = "id") int id) {
-        
+
         cargarDatosVenta();
         Usuario tmp = new Usuario();
-        for(Usuario u: usuarios){
-            if(id == u.getId()){
+        for (Usuario u : usuarios) {
+            if (id == u.getId()) {
                 tmp = u;
             }
         }
@@ -228,11 +226,12 @@ public class ControladorVendedor {
 
         return "vista_vendedor";
     }
-    
+
     @GetMapping("/reservas/add")
     public String AddReservaView(Model modelo, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
         Usuario tmp = new Usuario();
         cargarDatosVenta();
+
         for (Usuario u : this.usuarios) {
             if (id == u.getId()) {
                 tmp = u;
@@ -240,42 +239,43 @@ public class ControladorVendedor {
         }
         modelo.addAttribute("clientes", usuarios);
         modelo.addAttribute("vehiculos", vehiculos);
-        modelo.addAttribute("usuario", tmp);
+        modelo.addAttribute("id", tmp.getId());
         modelo.addAttribute("action", action);
 
         return "vista_vendedor_crud";
     }
 
     @PostMapping("/reservas/add")
-    public String AddReserva(Model Modelo, @RequestParam(name = "marca") String marca,
-            @RequestParam(name = "modelo") String modelo,
-            @RequestParam(name = "patente") String patente,
-            @RequestParam(name = "color") String color,
-            @RequestParam(name = "precio_alquiler") double precio_alquiler,
-            @RequestParam(name = "litros_combustible") double litros_combustible,
-            @RequestParam(name = "entregado") int entregado,
+    public String AddReserva(Model Modelo, @RequestParam(name = "fecha_inicio") String fecha_inicio,
+            @RequestParam(name = "fecha_final") String fecha_final,
+            @RequestParam(name = "id_cliente") int id_cliente,
+            @RequestParam(name = "vehiculos_acordados") String vehiculos_acordados,
+            @RequestParam(name = "id_oficina") int id_oficina,
             @RequestParam(name = "id") int id
     ) {
+        cargarDatosVenta();
+        String[] vehiculos = vehiculos_acordados.split(",");
+        List<String> lista_vehiculos = Arrays.asList(vehiculos);
+        List<Vehiculo> vehiculos_reservados = new ArrayList<Vehiculo>();
+        double precio_total = 0;
+        for (String vehiculo : lista_vehiculos) {
+            for (int i = 0; i < this.vehiculos.size(); i++) {
+                if (Integer.parseInt(vehiculo) == this.vehiculos.get(i).getId()) {
+                    vehiculos_reservados.add(this.vehiculos.get(i));
+                    precio_total += this.vehiculos.get(i).getPrecio_alquiler();
+                }
+            }
+        }
 
         RestTemplate rtAdd = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        
-        Vehiculo veh = new Vehiculo();
-        veh.setId(null);
-        veh.setLitros_combustible(litros_combustible);
-        veh.setPrecio_alquiler(precio_alquiler);
-        veh.setColor(color);
-        veh.setEntregado(entregado);
-        veh.setMarca(marca);
-        veh.setModelo(modelo);
-        veh.setPatente(patente);
-        
-        HttpEntity<Vehiculo> request;
-        request = new HttpEntity<>(new Vehiculo(null, litros_combustible,precio_alquiler,entregado,patente,modelo,marca,color), headers);
 
-        ResponseEntity<Vehiculo> v = rtAdd.postForEntity("http://localhost:9090/reservas/add", request, Vehiculo.class);
+        HttpEntity<Reserva> request;
+        request = new HttpEntity<>(new Reserva(null, Date.valueOf(fecha_inicio), Date.valueOf(fecha_final), precio_total, id_oficina, id_cliente, vehiculos_reservados), headers);
+
+        Reserva r = rtAdd.postForObject("http://localhost:9090/reservas/add", request, Reserva.class);
 
         cargarDatosVenta();
         Usuario tmp = new Usuario();
@@ -284,7 +284,7 @@ public class ControladorVendedor {
                 tmp = us;
             }
         }
-        
+
         Modelo.addAttribute("usuario", tmp);
         Modelo.addAttribute("datos_reservas", this.reservas);
         Modelo.addAttribute("datos_vehiculos", this.vehiculos);
@@ -294,8 +294,8 @@ public class ControladorVendedor {
         return "vista_vendedor";
 
     }
-    
-     @GetMapping("reservas/edit/{reserva_id}")
+
+    @GetMapping("reservas/edit/{reserva_id}")
     public String UpdateReservaView(Model modelo, @PathVariable("reserva_id") int reserva_id, @RequestParam(name = "action") String action, @RequestParam(name = "id") int id) {
 
         cargarDatosVenta();
@@ -306,6 +306,8 @@ public class ControladorVendedor {
             }
         }
         modelo.addAttribute("id", id);
+        modelo.addAttribute("clientes", this.usuarios);
+        modelo.addAttribute("vehiculos", tmp.getVehiculos_reservados());
         modelo.addAttribute("reserva_edit", tmp);
         modelo.addAttribute("action", action);
 
@@ -313,17 +315,43 @@ public class ControladorVendedor {
     }
 
     @PostMapping("reservas/edit/{id}")
-    public String UpdateReserva(Model modelo, Vehiculo vehiculo, @RequestParam(name = "user_id") int user_id) {
+    public String UpdateReserva(Model modelo, Reserva reserva, @RequestParam(name = "fecha_inicio") String fecha_inicio,
+            @RequestParam(name = "fecha_final") String fecha_final,
+            @RequestParam(name = "id_cliente") int id_cliente,
+            @RequestParam(name = "vehiculos_reservados") String vehiculos_re,
+            @RequestParam(name = "id_oficina") int id_oficina,
+            @RequestParam(name= "precio_total") double precio_total,
+            @RequestParam(name = "id") int id,
+            @RequestParam(name = "user_id") int user_id){
+        
+        cargarDatosVenta();
 
+        String[] vehiculos_tmp = vehiculos_re.split(",");
+        List<String> lista_vehiculos = Arrays.asList(vehiculos_tmp);
+        List<Vehiculo> vehiculos_reservados = new ArrayList<Vehiculo>();
+        for (String vehiculo : lista_vehiculos) {
+            for (int i = 0; i < this.vehiculos.size(); i++) {
+                if (Integer.parseInt(vehiculo) == this.vehiculos.get(i).getId()) {
+                    vehiculos_reservados.add(this.vehiculos.get(i));
+                }
+            }
+        }
+        reserva.setFecha_inicio(Date.valueOf(fecha_inicio));
+        reserva.setFecha_final(Date.valueOf(fecha_final));
+        reserva.setId_cliente(id_cliente);
+        reserva.setId_oficina(id_oficina);
+        reserva.setVehiculos_reservados(vehiculos_reservados);
+        reserva.setPrecio_total(precio_total);
+        
         RestTemplate rtEdit = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<Vehiculo> request = new HttpEntity<>(vehiculo, headers);
+        HttpEntity<Reserva> request = new HttpEntity<>(reserva, headers);
 
-        String url = "http://localhost:9090/reservas/edit/" + vehiculo.getId();
-        rtEdit.put(url, request, Vehiculo.class);
+        String url = "http://localhost:9090/reservas/edit/" + reserva.getId();
+        rtEdit.put(url, request, Reserva.class);
 
         cargarDatosVenta();
 
@@ -386,7 +414,7 @@ public class ControladorVendedor {
 
         return "vista_vendedor";
     }
-    
+
     private void cargarDatosVenta() {
 
         //Recibimos como un array y casteamos luego a List
@@ -399,5 +427,5 @@ public class ControladorVendedor {
         reservasArray = rtRe.getForObject("http://localhost:9090/reservas/all", Reserva[].class);
         reservas = Arrays.asList(reservasArray);
     }
-    
+
 }

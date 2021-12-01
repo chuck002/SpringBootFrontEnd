@@ -68,7 +68,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Rol: </label>
-                        <input type="text" name="rol" required="true" th:field="*{rol}" th:value="${usuario_edit.rol}" disabled="true"/>
+                        <input type="text" name="rol" required="true" th:field="*{rol}" th:value="${usuario_edit.rol}"/>
                     </div>
                     <div class="mb-3">
                         <label>Nombre Completo: </label>
@@ -163,11 +163,11 @@
                     <label>Id Cliente: </label>
                     <select name="id_cliente">
                         <div th:each="cliente : ${clientes}" th:if="${cliente.rol eq 3}">
-                            <option value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
+                            <option th:value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
                         </div>
                     </select><br>
-                    <label>Seleccionar Vehiculos: </label>
-                    <table class="centrada">
+                    <label><h3>Vehiculos Disponibles</h3></label>
+                    <table class="table table-bordered table-success table-striped table-hover">
                         <thead>
                         <td>Agregar Vehiculo</td>
                         <td>Id Vehiculo</td>
@@ -182,7 +182,7 @@
                         <tbody>
 
                             <tr th:each="vehiculo : ${vehiculos}">
-                                <td><input type="checkbox" name="vehiculos_reservados[]" value="${vehiculo.id}"></td>
+                                <td><input type="checkbox" name="vehiculos_acordados" th:value="${vehiculo.id}"></td>
                                 <td th:text="${vehiculo.id}"></td>
                                 <td th:text="${vehiculo.precio_alquiler}"></td>
                                 <td th:text="${vehiculo.litros_combustible}"></td>
@@ -204,10 +204,11 @@
 
                     <div class="mb-3">
                         <label>Id Oficina: </label>
-                        <input type="number" name="id_oficina" required="true"/>
+                        <input type="number" name="id_oficina" required="true">
+                        <input type="hidden" name="id" th:value="${id}">
                     </div>
 
-                    <input type="hidden" name="id" th:value="${usuario.id}">
+                    
                     <div class="mb-4">
                         <button type="button" class="btn btn-secondary" >Cerrar</button>
                         <input type="submit" class="btn btn-primary" value="Agregar Reserva">
@@ -224,23 +225,23 @@
                 <form method="post" th:action="@{/vendedor/reservas/edit/{id}(id=${reserva_edit.id})}" th:object="${reserva_edit}">
                     <div class="mb-3">
                         <label>Fecha de Inicio: </label>
-                        <input type="date" name="fecha_inicio" required="true"/>
+                        <input type="date" name="fecha_inicio" required="true" th:field="*{fecha_inicio}" th:value="${reserva_edit.fecha_inicio}">
                     </div>
                     <div class="mb-3">
                         <label>Fecha de Finalizacion: </label>
-                        <input type="date" name="fecha_final" required="true"/>
+                        <input type="date" name="fecha_final" required="true" th:field="*{fecha_final}" th:value="${reserva_edit.fecha_final}">
                     </div>
 
                     <label>Id Cliente: </label>
-                    <select name="id_cliente">
+                    <select name="id_cliente" th:field="*{id_cliente}">
                         <div th:each="cliente : ${clientes}" th:if="${cliente.rol eq 3}">
-                            <option value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
+                            <option th:value="${cliente.id}"><span th:text="${cliente.nombre}"></span></option>
                         </div>
                     </select><br>
                     <label>Seleccionar Vehiculos: </label>
-                    <table class="centrada">
+                    <table class="table table-bordered table-success table-striped table-hover">
                         <thead>
-                        <td>Agregar Vehiculo</td>
+                        <td>Vehiculo</td>
                         <td>Id Vehiculo</td>
                         <td>Precio de Alquiler</td>
                         <td>Litros en Tanque</td>
@@ -253,7 +254,7 @@
                         <tbody>
 
                             <tr th:each="vehiculo : ${vehiculos}">
-                                <td><input type="checkbox" name="vehiculos_reservados[]" value="${vehiculo.id}"></td>
+                                <td><input type="checkbox" name="vehiculos_reservados" th:field="*{vehiculos_reservados}" th:value="${vehiculo.id}" checked="true"></td>
                                 <td th:text="${vehiculo.id}"></td>
                                 <td th:text="${vehiculo.precio_alquiler}"></td>
                                 <td th:text="${vehiculo.litros_combustible}"></td>
@@ -275,10 +276,15 @@
 
                     <div class="mb-3">
                         <label>Id Oficina: </label>
-                        <input type="number" name="id_oficina" required="true"/>
+                        <input type="number" name="id_oficina" required="true" th:field="*{id_oficina}" th:value="${reserva_edit.id_oficina}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Precio Total: </label>
+                        <input type="text" name="precio_total" required="true" th:field="*{precio_total}" th:value="${reserva_edit.precio_total}">
+                        <input type="hidden" name="user_id" th:value="${id}">
                     </div>
 
-                    <input type="hidden" name="id" th:value="${id}">
+                    
                     <div class="mb-4">
                         <button type="button" class="btn btn-secondary" >Cerrar</button>
                         <input type="submit" class="btn btn-primary" value="Modificar Reserva">

@@ -16,11 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -259,16 +257,6 @@ public class ControladorAdmin {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        
-        Vehiculo veh = new Vehiculo();
-        veh.setId(null);
-        veh.setLitros_combustible(litros_combustible);
-        veh.setPrecio_alquiler(precio_alquiler);
-        veh.setColor(color);
-        veh.setEntregado(entregado);
-        veh.setMarca(marca);
-        veh.setModelo(modelo);
-        veh.setPatente(patente);
         
         HttpEntity<Vehiculo> request;
         request = new HttpEntity<>(new Vehiculo(null, litros_combustible,precio_alquiler,entregado,patente,modelo,marca,color), headers);
