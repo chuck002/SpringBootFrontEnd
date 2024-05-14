@@ -10,7 +10,6 @@ Se necesita tener Maven para correr el proyecto. Si lo tienes instalado debes ej
 
 ´´´
     mvn compile
-
     mvn spring-boot:run
 
 ´´´
